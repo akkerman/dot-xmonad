@@ -20,8 +20,7 @@ main = do
                         }
         , modMask = mod4Mask     -- Rebind Mod to the Windows key
         , terminal = "st"
-        [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock")
-        ]
+        } `additionalKeys` myKeys
 
 myLayout =
     avoidStruts $ tiled ||| three ||| Full 
@@ -31,3 +30,8 @@ myLayout =
         nmaster = 1
         ratio = 2/3
         delta = 3/100
+          
+myKeys = 
+    [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock")
+    , ((mod4Mask .|. shiftMask, xK_p), spawn "j4-dmenu-desktop --term=/usr/local/bin/st")
+    ]

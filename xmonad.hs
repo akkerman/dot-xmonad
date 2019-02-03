@@ -15,7 +15,8 @@ main = do
         , layoutHook = myLayout
         , logHook = dynamicLogWithPP xmobarPP
                         { ppOutput = hPutStrLn xmproc
-                        , ppTitle = xmobarColor "green" "" . shorten 50
+                        , ppCurrent = xmobarColor "#83a598" "" . wrap "[" "]"
+                        , ppTitle = xmobarColor "#98971a" "" . shorten 50
                         }
         , modMask = mod4Mask     -- Rebind Mod to the Windows key
         , terminal = "st"

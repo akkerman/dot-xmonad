@@ -18,7 +18,7 @@ main = do
                         , ppTitle = xmobarColor "green" "" . shorten 50
                         }
         , modMask = mod4Mask     -- Rebind Mod to the Windows key
-        } `additionalKeys`
+        , terminal = "st"
         [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock")
         ]
 

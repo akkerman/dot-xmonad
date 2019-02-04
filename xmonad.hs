@@ -48,10 +48,6 @@ main = do
         { manageHook = manageDocks <+> manageHook defaultConfig
         , layoutHook = myLayout
         , logHook = dynamicLogWithPP (myLogHook dbus)
-                        -- { ppOutput = hPutStrLn xmproc
-                        -- , ppCurrent = xmobarColor "#83a598" "" . wrap "[" "]"
-                        -- , ppTitle = xmobarColor "#98971a" "" . shorten 50
-                        -- }
         , modMask = modm     -- Rebind Mod to the Windows key
         , terminal = "st"
         } `additionalKeys` myKeys
@@ -81,15 +77,27 @@ myKeys =
 
 myLogHook dbus = def 
     { ppOutput  = dbusOutput dbus
-    , ppCurrent = format lwhite bg2 blue
-    , ppVisible = format white bg2 green
-    , ppUrgent  = format red white red
-    , ppHidden  = format white bg bg2
+    , ppCurrent = format lwhite bg2 blue . icon
+    , ppVisible = format white bg2 green . icon
+    , ppUrgent  = format red white red . icon
+    , ppHidden  = format white bg bg2 . icon
+    , ppHiddenNoWindows = format white bg bg . icon
     , ppWsSep   = " "
     , ppSep     = " · "
     }
 
-
+icon :: WorkspaceId -> String
+icon "1" = "\xf120"
+icon "2" = "\xf268"
+icon "3" = "\xf16c"
+icon "4" = "\xf121"
+icon "5" = "\xf1fe"
+icon "6" = "\xf085"
+icon "7" = "\xf075"
+icon "8" = "\xf17c"
+icon "9" = "\xf02d"
+icon n = n
+   
 format foreground background line ws = wrap (ln ++ bg ++ fg ++ padding) (padding ++ close) ws
     where
         ln      = "%{u" ++ line ++ "}"

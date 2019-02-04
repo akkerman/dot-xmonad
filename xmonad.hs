@@ -6,19 +6,53 @@ import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 import XMonad.Layout.ThreeColumns
 
+import qualified DBus as D
+import qualified DBus.Client as D
+import qualified Codec.Binary.UTF8.String as UTF8
+
+modm = mod4Mask
+
+
+--- colors
+black   = "#282828"
+red     = "#cc241d"
+green   = "#98971a"
+yellow  = "#d79921"
+blue    = "#458588"
+magenta = "#b16286"
+cyan    = "#689d6a"
+white   = "#a89984"
+
+bg      = "#262626"
+bg2     = "#4e4e4e"
+
+--- bright colors
+lblack   = "#928374"
+lred     = "#fb4934"
+lgreen   = "#b8bb26"
+lyellow  = "#fabd2f"
+lblue    = "#83a598"
+lmagenta = "#d3869b"
+lcyan    = "#8ec07c"
+lwhite   = "#ebdbb2"
+
 
 main = do
-    xmproc <- spawnPipe "/usr/sbin/xmobar /home/akkerman/.xmobarrc"
+    dbus <- D.connectSession
+
+    D.requestName dbus (D.busName_ "org.xmonad.Log")
+        [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+
 
     xmonad $ docks $ defaultConfig
         { manageHook = manageDocks <+> manageHook defaultConfig
         , layoutHook = myLayout
-        , logHook = dynamicLogWithPP xmobarPP
-                        { ppOutput = hPutStrLn xmproc
-                        , ppCurrent = xmobarColor "#83a598" "" . wrap "[" "]"
-                        , ppTitle = xmobarColor "#98971a" "" . shorten 50
-                        }
-        , modMask = mod4Mask     -- Rebind Mod to the Windows key
+        , logHook = dynamicLogWithPP (myLogHook dbus)
+                        -- { ppOutput = hPutStrLn xmproc
+                        -- , ppCurrent = xmobarColor "#83a598" "" . wrap "[" "]"
+                        -- , ppTitle = xmobarColor "#98971a" "" . shorten 50
+                        -- }
+        , modMask = modm     -- Rebind Mod to the Windows key
         , terminal = "st"
         } `additionalKeys` myKeys
 
@@ -32,6 +66,45 @@ myLayout =
         delta = 3/100
           
 myKeys = 
-    [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock")
-    , ((mod4Mask .|. shiftMask, xK_p), spawn "j4-dmenu-desktop --term=/usr/local/bin/st")
+    [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock") -- lock screen
+    , ((modm,               xK_d), spawn "dmenu_run")
+    , ((modm .|. shiftMask, xK_d), spawn "j4-dmenu-desktop --term=/usr/local/bin/st")
+
+    , ((modm,               xK_g), spawn "chromium --profile-directory=Default")
+    , ((modm,               xK_y), spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
+    , ((modm,               xK_p), spawn "chromium --profile-directory=Default --app-id=amfkemaodmghlnknncknfhcmmiclmbpa") -- plex
+    , ((modm .|. shiftMask, xK_m), spawn "$HOME/.xmonad/chscreen.sh") -- plex
+
+
+    , ((modm .|. shiftMask, xK_a), spawn "arandr")
     ]
+
+myLogHook dbus = def 
+    { ppOutput  = dbusOutput dbus
+    , ppCurrent = format lwhite bg2 blue
+    , ppVisible = format white bg2 green
+    , ppUrgent  = format red white red
+    , ppHidden  = format white bg bg2
+    , ppWsSep   = " "
+    , ppSep     = " · "
+    }
+
+
+format foreground background line ws = wrap (ln ++ bg ++ fg ++ padding) (padding ++ close) ws
+    where
+        ln      = "%{u" ++ line ++ "}"
+        bg      = "%{B" ++ background ++ "}"
+        fg      = "%{F" ++ foreground ++ "}"
+        close   = "%{-u}%{B- F-}"
+        padding = "    "
+
+-- Emit a DBus signal on log updates
+dbusOutput dbus str = do
+    let signal = (D.signal objectPath interfaceName memberName) {
+            D.signalBody = [D.toVariant $ UTF8.decodeString str]
+        }
+    D.emit dbus signal
+  where
+    objectPath = D.objectPath_ "/org/xmonad/Log"
+    interfaceName = D.interfaceName_ "org.xmonad.Log"
+    memberName = D.memberName_ "Update"

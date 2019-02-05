@@ -1,6 +1,7 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Layout.Named
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
@@ -44,23 +45,28 @@ main = do
         [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
 
-    xmonad $ docks $ defaultConfig
-        { manageHook = manageDocks <+> manageHook defaultConfig
+    xmonad $ docks $ def
+        { manageHook = manageDocks <+> manageHook def
         , layoutHook = myLayout
         , logHook = dynamicLogWithPP (myLogHook dbus)
         , modMask = modm     -- Rebind Mod to the Windows key
         , terminal = "st"
+        , workspaces = myWorkspaces
+        , normalBorderColor = white
+        , focusedBorderColor = blue
         } `additionalKeys` myKeys
 
 myLayout =
-    avoidStruts $ tiled ||| three ||| Full 
+    tiled ||| three ||| Full 
     where 
-        three = ThreeColMid nmaster delta (5/12)
-        tiled = Tall nmaster delta ratio
+        three = named ("%{u"++yellow++"} ||| %{-u}") $ avoidStruts $ ThreeColMid nmaster delta (5/12)
+        tiled = named ("%{u"++yellow++"} []= %{-u}") $ avoidStruts $ Tall nmaster delta ratio
         nmaster = 1
         ratio = 2/3
         delta = 3/100
           
+myWorkspaces = ["\xf120", "\xf268", "\xf16c", "\xf121", "\xf1fe", "\xf085", "\xf075", "\xf17c", "\xf02d" ]
+
 myKeys = 
     [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock") -- lock screen
     , ((modm,               xK_d), spawn "dmenu_run")
@@ -73,30 +79,20 @@ myKeys =
 
 
     , ((modm .|. shiftMask, xK_a), spawn "arandr")
+    , ((modm,               xK_f), spawn "playerctl play-pause")
     ]
 
 myLogHook dbus = def 
     { ppOutput  = dbusOutput dbus
-    , ppCurrent = format lwhite bg2 blue . icon
-    , ppVisible = format white bg2 green . icon
-    , ppUrgent  = format red white red . icon
-    , ppHidden  = format white bg bg2 . icon
-    , ppHiddenNoWindows = format white bg bg . icon
+    , ppCurrent = format lwhite bg2 blue
+    , ppVisible = format white bg2 green
+    , ppUrgent  = format red white red
+    , ppHidden  = format white bg bg2
+    , ppHiddenNoWindows = format white bg bg
     , ppWsSep   = " "
-    , ppSep     = " · "
+    , ppSep     = "  "
     }
 
-icon :: WorkspaceId -> String
-icon "1" = "\xf120"
-icon "2" = "\xf268"
-icon "3" = "\xf16c"
-icon "4" = "\xf121"
-icon "5" = "\xf1fe"
-icon "6" = "\xf085"
-icon "7" = "\xf075"
-icon "8" = "\xf17c"
-icon "9" = "\xf02d"
-icon n = n
    
 format foreground background line ws = wrap (ln ++ bg ++ fg ++ padding) (padding ++ close) ws
     where

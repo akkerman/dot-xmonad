@@ -52,7 +52,7 @@ main = do
         , modMask = modm     -- Rebind Mod to the Windows key
         , terminal = "st"
         , workspaces = myWorkspaces
-        , normalBorderColor = white
+        , normalBorderColor = bg2
         , focusedBorderColor = blue
         } `additionalKeys` myKeys
 

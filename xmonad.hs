@@ -6,6 +6,8 @@ import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 import XMonad.Layout.ThreeColumns
+import Graphics.X11.ExtraTypes.XF86
+import Data.List(elemIndex)
 
 import qualified DBus as D
 import qualified DBus.Client as D
@@ -51,21 +53,31 @@ main = do
         , logHook = dynamicLogWithPP (myLogHook dbus)
         , modMask = modm     -- Rebind Mod to the Windows key
         , terminal = "st"
-        , workspaces = myWorkspaces
         , normalBorderColor = bg2
         , focusedBorderColor = blue
         } `additionalKeys` myKeys
 
-myLayout =
-    tiled ||| three ||| Full 
+nameClick name = named ("%{A1:xdotool key super+space:}%{u"++yellow++"} " ++ name ++ " %{-u}%{A-}")
+
+myLayout = avoidStruts $
+    tiled ||| three ||| full 
     where 
-        three = named ("%{u"++yellow++"} ||| %{-u}") $ avoidStruts $ ThreeColMid nmaster delta (5/12)
-        tiled = named ("%{u"++yellow++"} []= %{-u}") $ avoidStruts $ Tall nmaster delta ratio
+        three = nameClick "|||" $ ThreeColMid nmaster delta (5/12)
+        tiled = nameClick "[]=" $ Tall nmaster delta ratio
+        full  = nameClick "[ ]" $ Full
         nmaster = 1
         ratio = 2/3
         delta = 3/100
           
-myWorkspaces = ["\xf120", "\xf268", "\xf16c", "\xf121", "\xf1fe", "\xf085", "\xf075", "\xf17c", "\xf02d" ]
+icon "1" = "\xf120"
+icon "2" = "\xf268"
+icon "3" = "\xf16c"
+icon "4" = "\xf121"
+icon "5" = "\xf1fe"
+icon "6" = "\xf085"
+icon "7" = "\xf075"
+icon "8" = "\xf17c"
+icon "9" = "\xf02d"
 
 myKeys = 
     [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock") -- lock screen
@@ -79,7 +91,10 @@ myKeys =
 
 
     , ((modm .|. shiftMask, xK_a), spawn "arandr")
-    , ((modm,               xK_f), spawn "playerctl play-pause")
+    , ((0, xF86XK_AudioPlay), spawn "playerctl play-pause")
+    , ((0, xF86XK_AudioStop), spawn "playerctl stop")
+    , ((0, xF86XK_AudioNext), spawn "playerctl next")
+    , ((0, xF86XK_AudioPrev), spawn "playerctl previous")
     ]
 
 myLogHook dbus = def 
@@ -94,12 +109,13 @@ myLogHook dbus = def
     }
 
    
-format foreground background line ws = wrap (ln ++ bg ++ fg ++ padding) (padding ++ close) ws
+format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding) (padding ++ close) $ icon ws
     where
+        click   = "%{A1:xdotool key super+" ++ ws ++ ":}"
         ln      = "%{u" ++ line ++ "}"
         bg      = "%{B" ++ background ++ "}"
         fg      = "%{F" ++ foreground ++ "}"
-        close   = "%{-u}%{B- F-}"
+        close   = "%{-u}%{B- F- A-}"
         padding = "    "
 
 -- Emit a DBus signal on log updates

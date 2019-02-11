@@ -2,16 +2,17 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.Named
+import XMonad.Layout.Spacing
 import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeys)
+import XMonad.Util.EZConfig(additionalKeysP)
 import System.IO
 import XMonad.Layout.ThreeColumns
-import Graphics.X11.ExtraTypes.XF86
 import Data.List(elemIndex)
 
 import qualified DBus as D
 import qualified DBus.Client as D
 import qualified Codec.Binary.UTF8.String as UTF8
+import qualified XMonad.StackSet as W
 
 modm = mod4Mask
 
@@ -55,19 +56,20 @@ main = do
         , terminal = "st"
         , normalBorderColor = bg2
         , focusedBorderColor = blue
-        } `additionalKeys` myKeys
+        } `additionalKeysP` myKeys
 
 nameClick name = named ("%{A1:xdotool key super+space:}%{u"++yellow++"} " ++ name ++ " %{-u}%{A-}")
 
 myLayout = avoidStruts $
     tiled ||| three ||| full 
     where 
-        three = nameClick "|||" $ ThreeColMid nmaster delta (5/12)
-        tiled = nameClick "[]=" $ Tall nmaster delta ratio
+        three = nameClick "|||" $ gaps $ ThreeColMid nmaster delta (5/12)
+        tiled = nameClick "[]=" $ gaps $ Tall nmaster delta ratio
         full  = nameClick "[ ]" $ Full
         nmaster = 1
         ratio = 2/3
         delta = 3/100
+        gaps = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
           
 icon "1" = "\xf120"
 icon "2" = "\xf268"
@@ -80,27 +82,27 @@ icon "8" = "\xf17c"
 icon "9" = "\xf02d"
 
 myKeys = 
-    [ ((mod4Mask .|. mod1Mask, xK_l), spawn "slock") -- lock screen
-    , ((modm,               xK_d), spawn "dmenu_run")
-    , ((modm .|. shiftMask, xK_d), spawn "j4-dmenu-desktop --term=/usr/local/bin/st")
-
-    , ((modm,               xK_g), spawn "chromium --profile-directory=Default")
-    , ((modm,               xK_y), spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
-    , ((modm,               xK_p), spawn "chromium --profile-directory=Default --app-id=amfkemaodmghlnknncknfhcmmiclmbpa") -- plex
-    , ((modm .|. shiftMask, xK_m), spawn "$HOME/.xmonad/chscreen.sh") -- plex
-
-
-    , ((modm .|. shiftMask, xK_a), spawn "arandr")
-    , ((0, xF86XK_AudioPlay), spawn "playerctl play-pause")
-    , ((0, xF86XK_AudioStop), spawn "playerctl stop")
-    , ((0, xF86XK_AudioNext), spawn "playerctl next")
-    , ((0, xF86XK_AudioPrev), spawn "playerctl previous")
+    [ ("M4-M1-l",         spawn "slock") -- lock screen
+    , ("M-d",             spawn "dmenu_run")
+    , ("M-S-d",           spawn "j4-dmenu-desktop --term=/usr/local/bin/st")
+    , ("M-g",             spawn "chromium --profile-directory=Default")
+    , ("M-y",             spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
+    , ("M-p",             spawn "chromium --profile-directory=Default --app-id=amfkemaodmghlnknncknfhcmmiclmbpa") -- plex
+    , ("M-S-m",           spawn "$HOME/.xmonad/chscreen.sh") -- plex
+    , ("M-S-a",           spawn "arandr")
+    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
+    , ("<XF86AudioStop>", spawn "playerctl stop")
+    , ("<XF86AudioNext>", spawn "playerctl next")
+    , ("<XF86AudioPrev>", spawn "playerctl previous")
+    , ("M-b",             sendMessage $ ToggleStrut U)
+    , ("M-<Return>",        spawn "/usr/local/bin/st")
+    , ("M-S-<Return>",      windows W.swapMaster)
     ]
 
 myLogHook dbus = def 
     { ppOutput  = dbusOutput dbus
     , ppCurrent = format lwhite bg2 blue
-    , ppVisible = format white bg2 green
+    , ppVisible = format lwhite bg2 white
     , ppUrgent  = format red white red
     , ppHidden  = format white bg bg2
     , ppHiddenNoWindows = format white bg bg

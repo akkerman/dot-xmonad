@@ -1,13 +1,18 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Named
 import XMonad.Layout.Spacing
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig(additionalKeysP)
-import System.IO
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.TwoPane
+import XMonad.Util.EZConfig(additionalKeysP)
+import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run(spawnPipe)
+
+import Control.Monad (liftM2)
 import Data.List(elemIndex)
+import System.IO
 
 import qualified DBus as D
 import qualified DBus.Client as D
@@ -15,7 +20,6 @@ import qualified Codec.Binary.UTF8.String as UTF8
 import qualified XMonad.StackSet as W
 
 modm = mod4Mask
-
 
 --- colors
 black   = "#282828"
@@ -49,7 +53,7 @@ main = do
 
 
     xmonad $ docks $ def
-        { manageHook = manageDocks <+> manageHook def
+        { manageHook = myManageHook <+> manageHook def
         , layoutHook = myLayout
         , logHook = dynamicLogWithPP (myLogHook dbus)
         , modMask = modm     -- Rebind Mod to the Windows key
@@ -61,15 +65,36 @@ main = do
 nameClick name = named ("%{A1:xdotool key super+space:}%{u"++yellow++"} " ++ name ++ " %{-u}%{A-}")
 
 myLayout = avoidStruts $
-    tiled ||| three ||| full 
+    tiled ||| three ||| two ||| full 
     where 
         three = nameClick "|||" $ gaps $ ThreeColMid nmaster delta (5/12)
+        two   = nameClick "[]|" $ gaps $ TwoPane delta ratio
         tiled = nameClick "[]=" $ gaps $ Tall nmaster delta ratio
         full  = nameClick "[ ]" $ Full
         nmaster = 1
         ratio = 2/3
         delta = 3/100
         gaps = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
+
+
+myScratchpads = 
+    [ NS "spotify" "spotify" (className =? "Spotify") defaultFloating
+    , NS "htop" "st -e htop" (title =? "htop") defaultFloating
+    , NS "arandr" "arandr" (className =? "Arandr") defaultFloating
+    ]
+
+
+myManageHook = composeAll
+   [ className =? "Xmessage"        --> doFloat
+   , className =? "Blueman-manager" --> doFloat
+   , className =? "Arandr"          --> doFloat
+   , className =? "Spotify"         --> doFloat  -- TODO this doesn't work
+   , className =? "Slack"           --> viewShift "7"
+   , className =? "TelegramDesktop" --> viewShift "7"
+   , manageDocks
+   ]
+   where 
+     viewShift = doF . liftM2 (.) W.greedyView W.shift
           
 icon "1" = "\xf120"
 icon "2" = "\xf268"
@@ -80,23 +105,30 @@ icon "6" = "\xf085"
 icon "7" = "\xf075"
 icon "8" = "\xf17c"
 icon "9" = "\xf02d"
+icon n = n
+
+dmenu_settings = " -nb '" ++ bg ++ "' -nf '" ++ white ++ "' -sb '" ++ blue ++ "' -sf '" ++ lwhite ++ "' -fn terminus-20:normal"
 
 myKeys = 
-    [ ("M4-M1-l",         spawn "slock") -- lock screen
-    , ("M-d",             spawn "dmenu_run")
-    , ("M-S-d",           spawn "j4-dmenu-desktop --term=/usr/local/bin/st")
-    , ("M-g",             spawn "chromium --profile-directory=Default")
-    , ("M-y",             spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
-    , ("M-p",             spawn "chromium --profile-directory=Default --app-id=amfkemaodmghlnknncknfhcmmiclmbpa") -- plex
-    , ("M-S-m",           spawn "$HOME/.xmonad/chscreen.sh") -- plex
-    , ("M-S-a",           spawn "arandr")
-    , ("<XF86AudioPlay>", spawn "playerctl play-pause")
-    , ("<XF86AudioStop>", spawn "playerctl stop")
-    , ("<XF86AudioNext>", spawn "playerctl next")
-    , ("<XF86AudioPrev>", spawn "playerctl previous")
-    , ("M-b",             sendMessage $ ToggleStrut U)
-    , ("M-<Return>",        spawn "/usr/local/bin/st")
-    , ("M-S-<Return>",      windows W.swapMaster)
+    [ ("M4-M1-l"                    , spawn "slock") -- lock screen
+    , ("M-d"                        , spawn ("dmenu_run" ++ dmenu_settings))
+    , ("M-S-d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
+    , ("M-g"                        , spawn "chromium --profile-directory=Default")
+    , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
+    , ("M-p"                        , spawn "chromium --profile-directory=Default --app-id=amfkemaodmghlnknncknfhcmmiclmbpa") -- plex
+    , ("M-S-m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
+    , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
+    , ("<XF86AudioPlay>"            , spawn "playerctl play-pause")
+    , ("<XF86AudioStop>"            , spawn "playerctl stop")
+    , ("<XF86AudioNext>"            , spawn "playerctl next")
+    , ("<XF86AudioPrev>"            , spawn "playerctl previous")
+    , ("<XF86MonBrightnessUp>"      , spawn "light -A 5")
+    , ("<XF86MonBrightnessDown>"    , spawn "light -U 5")
+    , ("M-b"                        , sendMessage $ ToggleStrut U)
+    , ("M-<Return>"                 , spawn "/usr/local/bin/st")
+    , ("M-S-<Return>"               , windows W.swapMaster)
+    , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
+    , ("M-t"                        , namedScratchpadAction myScratchpads "htop")
     ]
 
 myLogHook dbus = def 
@@ -108,9 +140,10 @@ myLogHook dbus = def
     , ppHiddenNoWindows = format white bg bg
     , ppWsSep   = " "
     , ppSep     = "  "
+    , ppTitle   = take 50
     }
-
-   
+  
+format foreground background line "NSP" = ""
 format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding) (padding ++ close) $ icon ws
     where
         click   = "%{A1:xdotool key super+" ++ ws ++ ":}"

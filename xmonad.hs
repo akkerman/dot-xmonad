@@ -106,6 +106,7 @@ dmenu_settings = " -nb '" ++ bg ++ "' -nf '" ++ white ++ "' -sb '" ++ blue ++ "'
 myKeys = 
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
     , ("M-d"                        , spawn ("dmenu_run" ++ dmenu_settings))
+    , ("M-S-t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
     , ("M-S-d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
     , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube

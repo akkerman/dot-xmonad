@@ -49,11 +49,11 @@ renameLayout name = ("%{A1:xdotool key super+space:}%{u"++yellow++"} " ++ name +
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $
-    maximize $ tiled ||| three ||| two ||| full 
+    tiled ||| three ||| two ||| full 
     where 
-        three = nameClick "|||" $ gaps $ ThreeColMid nmaster delta (5/12)
-        two   = nameClick "[]|" $ gaps $ TwoPane delta ratio
-        tiled = nameClick "[]=" $ gaps $ Tall nmaster delta ratio
+        three = nameClick "|||" $ maximizeWithPadding 2 $ gaps $ ThreeColMid nmaster delta (5/12)
+        two   = nameClick "[]|" $ maximizeWithPadding 2 $ gaps $ TwoPane delta ratio
+        tiled = nameClick "[]=" $ maximizeWithPadding 2 $ gaps $ Tall nmaster delta ratio
         full  = nameClick "[ ]" $ Full
         nmaster = 1
         ratio = 2/3

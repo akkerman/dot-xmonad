@@ -1,11 +1,14 @@
 -- imports {{{1
+import XMonad hiding ( (|||) ) -- hide in favour of the one from LayoutCombinators
 import XMonad.Hooks.DynamicLog 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Named
+import XMonad.Layout.Maximize
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
+import XMonad.Layout.LayoutCombinators
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
@@ -47,7 +50,7 @@ renameLayout name = ("%{A1:xdotool key super+space:}%{u"++yellow++"} " ++ name +
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $
-    tiled ||| three ||| two ||| full 
+    maximize $ tiled ||| three ||| two ||| full 
     where 
         three = nameClick "|||" $ gaps $ ThreeColMid nmaster delta (5/12)
         two   = nameClick "[]|" $ gaps $ TwoPane delta ratio
@@ -122,6 +125,7 @@ myKeys =
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
+    , ("M-f"                        , withFocused (sendMessage . maximizeRestore))
     ]
 
 --- logging {{{1

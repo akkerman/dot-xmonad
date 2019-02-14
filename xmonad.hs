@@ -126,6 +126,8 @@ myKeys =
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
     , ("M-f"                        , withFocused (sendMessage . maximizeRestore))
+
+    , ("M-<Backspace>"              , kill)
     ]
 
 --- logging {{{1

@@ -1,5 +1,5 @@
 -- imports {{{1
-import XMonad hiding ( (|||) ) -- hide in favour of the one from LayoutCombinators
+import XMonad
 import XMonad.Hooks.DynamicLog 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -8,7 +8,6 @@ import XMonad.Layout.Maximize
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
-import XMonad.Layout.LayoutCombinators
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)

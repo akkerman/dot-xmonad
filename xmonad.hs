@@ -1,4 +1,4 @@
--- imports {{{1
+--- imports {{{1
 import XMonad
 import XMonad.Hooks.DynamicLog 
 import XMonad.Hooks.ManageDocks
@@ -107,8 +107,10 @@ myKeys =
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
     , ("M-d"                        , spawn ("dmenu_run" ++ dmenu_settings))
     , ("M-S-t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
+    , ("M-S-p"                      , spawn ("$HOME/.xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-S-d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
+    , ("M-S-g"                      , spawn "chromium --incognito")
     , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
     , ("M-p"                        , spawn "chromium --profile-directory=Default --app-id=amfkemaodmghlnknncknfhcmmiclmbpa") -- plex
     , ("M-S-m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))

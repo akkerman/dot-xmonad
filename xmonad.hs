@@ -1,5 +1,6 @@
 --- imports {{{1
 import XMonad
+import XMonad.Actions.UpdatePointer
 import XMonad.Hooks.DynamicLog 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -141,7 +142,7 @@ myLogHook dbus = def
     , ppHiddenNoWindows = format white bg bg
     , ppWsSep   = " "
     , ppSep     = "  "
-    , ppTitle   = take 50
+    , ppTitle   = shorten 50
     }
   
 
@@ -169,7 +170,7 @@ main = do
     xmonad $ docks $ def
         { manageHook = myManageHook <+> manageHook def
         , layoutHook = myLayout
-        , logHook = dynamicLogWithPP (myLogHook dbus)
+        , logHook = dynamicLogWithPP (myLogHook dbus) >> updatePointer (0.5,0) (0,0)
         , modMask = modm     -- Rebind Mod to the Windows key
         , terminal = "st"
         , normalBorderColor = bg2

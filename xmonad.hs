@@ -1,5 +1,6 @@
 --- imports {{{1
 import XMonad
+import XMonad.Actions.CycleWS
 import XMonad.Hooks.DynamicLog 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -87,6 +88,7 @@ icon "6" = "\xf085"
 icon "7" = "\xf075"
 icon "8" = "\xf17c"
 icon "9" = "\xf02d"
+icon "0" = "\xf1de"
 icon n = n
 
 format foreground background line "NSP" = ""
@@ -129,7 +131,9 @@ myKeys =
     , ("M-f"                        , withFocused (sendMessage . maximizeRestore))
 
     , ("M-<Backspace>"              , kill)
-    ]
+    ] ++ map autoBackAndForth myWorkspaces
+
+autoBackAndForth id = ("M-" ++ id, toggleOrView id)
 
 --- logging {{{1
 myLogHook dbus = def 
@@ -159,6 +163,8 @@ dbusOutput dbus str = do
 --- main {{{1
 modm = mod4Mask
 
+myWorkspaces = map show ([1..9 :: Int] ++ [0])
+
 main = do
     dbus <- D.connectSession
 
@@ -171,6 +177,7 @@ main = do
         , layoutHook = myLayout
         , logHook = dynamicLogWithPP (myLogHook dbus)
         , modMask = modm     -- Rebind Mod to the Windows key
+        , workspaces = myWorkspaces
         , terminal = "st"
         , normalBorderColor = bg2
         , focusedBorderColor = blue

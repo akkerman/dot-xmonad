@@ -29,17 +29,20 @@ red     = "#cc241d"
 green   = "#98971a"
 yellow  = "#d79921"
 blue    = "#458588"
+lblue   = "83a598"
 purple  = "#b16286"
 aqua    = "#689d6a"
 gray    = "#a89984"
+orange  = "#d65d0e"
 
 fg      = "#ebdbb2"
 
 bg1     = "#3c3836"
 bg2     = "#504945"
+bg3     = "#665c54"
 
 --- layout {{{1
-renameLayout name = ("%{A1:xdotool key super+space:}%{u"++yellow++"} " ++ name ++ " %{-u}%{A-}")
+renameLayout name = ("%{A1:xdotool key super+space:}%{u"++yellow++"}  " ++ name ++ "  %{-u}%{A-}")
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $
@@ -83,14 +86,17 @@ icon "8" = "\xf17c"
 icon "9" = "\xf02d"
 icon "0" = "\xf1de"
 icon "-" = "\xf120"
-icon "=" = "\xf120"
+icon "=" = "\xf0f4"
 icon n = n
 
-wipe n = ""
+xdo "=" = "equal"
+xdo "-" = "minus"
+xdo x = x
+
 format foreground background line "NSP" = ""
 format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding) (padding ++ close) $ icon ws
     where
-        click   = "%{A1:xdotool key super+" ++ ws ++ ":}"
+        click   = "%{A1:xdotool key super+" ++ (xdo ws) ++ ":}"
         ln      = "%{u" ++ line ++ "}"
         bg      = "%{B" ++ background ++ "}"
         fg      = "%{F" ++ foreground ++ "}"
@@ -137,13 +143,13 @@ autoBackAndForth id = ("M-" ++ id, toggleOrView id)
 --- logging {{{1
 myLogHook dbus = def 
     { ppOutput  = dbusOutput dbus
-    , ppCurrent = format fg bg1 blue
-    , ppVisible = format fg bg1 gray
+    , ppCurrent = format fg bg1 orange
+    , ppVisible = format fg bg1 blue
     , ppUrgent  = format red fg red
-    , ppHidden  = format fg bg bg2
-    , ppHiddenNoWindows = format bg1 bg bg
-    , ppWsSep   = " "
-    , ppSep     = "  "
+    , ppHidden  = format fg bg2 bg2
+    , ppHiddenNoWindows = format bg3 bg2 bg2
+    , ppWsSep   = ""
+    , ppSep     = " "
     , ppTitle   = shorten 50
     }
   
@@ -178,8 +184,8 @@ main = do
         , modMask = modm     -- Rebind Mod to the Windows key
         , workspaces = myWorkspaces
         , terminal = "st"
-        , normalBorderColor = bg2
-        , focusedBorderColor = blue
+        , normalBorderColor = blue
+        , focusedBorderColor = orange
         } `additionalKeysP` myKeys
 
 -- vim: fdm=marker fdc=2 fcs=fold\:\ :

@@ -24,27 +24,19 @@ import qualified Codec.Binary.UTF8.String as UTF8
 import qualified XMonad.StackSet as W
 
 --- colors {{{1
-black   = "#282828"
+bg      = "#282828"
 red     = "#cc241d"
 green   = "#98971a"
 yellow  = "#d79921"
 blue    = "#458588"
-magenta = "#b16286"
-cyan    = "#689d6a"
-white   = "#a89984"
+purple  = "#b16286"
+aqua    = "#689d6a"
+gray    = "#a89984"
 
-bg      = "#262626"
-bg2     = "#4e4e4e"
+fg      = "#ebdbb2"
 
--- bright colors
-lblack   = "#928374"
-lred     = "#fb4934"
-lgreen   = "#b8bb26"
-lyellow  = "#fabd2f"
-lblue    = "#83a598"
-lmagenta = "#d3869b"
-lcyan    = "#8ec07c"
-lwhite   = "#ebdbb2"
+bg1     = "#3c3836"
+bg2     = "#504945"
 
 --- layout {{{1
 renameLayout name = ("%{A1:xdotool key super+space:}%{u"++yellow++"} " ++ name ++ " %{-u}%{A-}")
@@ -90,8 +82,11 @@ icon "7" = "\xf075"
 icon "8" = "\xf17c"
 icon "9" = "\xf02d"
 icon "0" = "\xf1de"
+icon "-" = "\xf120"
+icon "=" = "\xf120"
 icon n = n
 
+wipe n = ""
 format foreground background line "NSP" = ""
 format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding) (padding ++ close) $ icon ws
     where
@@ -103,7 +98,7 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
         padding = "    "
 
 --- shortcuts {{{1
-dmenu_settings = " -nb '" ++ bg ++ "' -nf '" ++ white ++ "' -sb '" ++ blue ++ "' -sf '" ++ lwhite ++ "' -fn terminus-20:normal"
+dmenu_settings = " -nb '" ++ bg ++ "' -nf '" ++ fg ++ "' -sb '" ++ blue ++ "' -sf '" ++ fg ++ "' -fn terminus-20:normal"
 
 myKeys = 
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
@@ -132,6 +127,9 @@ myKeys =
     , ("M-f"                        , withFocused (sendMessage . maximizeRestore))
 
     , ("M-<Backspace>"              , kill)
+    , ("M-S-0"                      , windows $ W.shift "0")
+    , ("M-S--"                      , windows $ W.shift "-")
+    , ("M-S-="                      , windows $ W.shift "=")
     ] ++ map autoBackAndForth myWorkspaces
 
 autoBackAndForth id = ("M-" ++ id, toggleOrView id)
@@ -139,11 +137,11 @@ autoBackAndForth id = ("M-" ++ id, toggleOrView id)
 --- logging {{{1
 myLogHook dbus = def 
     { ppOutput  = dbusOutput dbus
-    , ppCurrent = format lwhite bg2 blue
-    , ppVisible = format lwhite bg2 white
-    , ppUrgent  = format red white red
-    , ppHidden  = format white bg bg2
-    , ppHiddenNoWindows = format white bg bg
+    , ppCurrent = format fg bg1 blue
+    , ppVisible = format fg bg1 gray
+    , ppUrgent  = format red fg red
+    , ppHidden  = format fg bg bg2
+    , ppHiddenNoWindows = format bg1 bg bg
     , ppWsSep   = " "
     , ppSep     = "  "
     , ppTitle   = shorten 50
@@ -164,7 +162,7 @@ dbusOutput dbus str = do
 --- main {{{1
 modm = mod4Mask
 
-myWorkspaces = map show ([1..9 :: Int] ++ [0])
+myWorkspaces = map show ([1..9 :: Int]) ++ ["0", "-", "="]
 
 main = do
     dbus <- D.connectSession

@@ -43,7 +43,7 @@ bg2     = "#504945"
 bg3     = "#665c54"
 
 --- layout {{{1
-renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  " ++ name ++ "  %{-u}%{B-A-}")
+renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  " ++ name ++ "  %{-u}%{B- A-}")
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $ smartBorders $
@@ -105,7 +105,7 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
         padding = "   "
 
 --- shortcuts {{{1
-dmenu_settings = " -nb '" ++ bg ++ "' -nf '" ++ fg ++ "' -sb '" ++ red ++ "' -sf '" ++ fg ++ "' -fn terminus-14:normal"
+dmenu_settings = " -nb '" ++ bg2 ++ "' -nf '" ++ fg ++ "' -sb '" ++ orange ++ "' -sf '" ++ bg1 ++ "' -fn terminus-12:normal -h 26"
 
 myKeys = 
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen

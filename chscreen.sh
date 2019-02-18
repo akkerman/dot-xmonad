@@ -1,6 +1,6 @@
 #!/bin/sh
 
-choice=$( find "$HOME/.screenlayout" \( -type f -o -type l \) -printf '%f\n' | sort | dmenu -i "$@")
+choice=$( find "$HOME/.screenlayout" \( -type f -o -type l \) -printf '%f\n' | sort | dmenu -p "monitor layout" -i "$@")
 
 if [ -n "$choice" ]; then
   sh "$HOME/.screenlayout/$choice"

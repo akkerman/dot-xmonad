@@ -10,6 +10,7 @@ import XMonad.Layout.Maximize
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
+import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run(spawnPipe)
@@ -42,10 +43,10 @@ bg2     = "#504945"
 bg3     = "#665c54"
 
 --- layout {{{1
-renameLayout name = ("%{A1:xdotool key super+space:}%{u"++yellow++"}  " ++ name ++ "  %{-u}%{A-}")
+renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  " ++ name ++ "  %{-u}%{B-A-}")
 nameClick name = named $ renameLayout name
 
-myLayout = avoidStruts $
+myLayout = avoidStruts $ smartBorders $
     tiled ||| three ||| two
     where 
         three = nameClick "|||" $ maximizeWithPadding 2 $ gaps $ ThreeColMid nmaster delta (5/12)
@@ -101,10 +102,10 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
         bg      = "%{B" ++ background ++ "}"
         fg      = "%{F" ++ foreground ++ "}"
         close   = "%{-u}%{B- F- A-}"
-        padding = "    "
+        padding = "   "
 
 --- shortcuts {{{1
-dmenu_settings = " -nb '" ++ bg ++ "' -nf '" ++ fg ++ "' -sb '" ++ blue ++ "' -sf '" ++ fg ++ "' -fn terminus-20:normal"
+dmenu_settings = " -nb '" ++ bg ++ "' -nf '" ++ fg ++ "' -sb '" ++ red ++ "' -sf '" ++ fg ++ "' -fn terminus-14:normal"
 
 myKeys = 
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
@@ -146,10 +147,10 @@ myLogHook dbus = def
     , ppCurrent = format fg bg1 orange
     , ppVisible = format fg bg1 blue
     , ppUrgent  = format red fg red
-    , ppHidden  = format fg bg2 bg2
-    , ppHiddenNoWindows = format bg3 bg2 bg2
+    , ppHidden  = format fg bg1 bg1
+    , ppHiddenNoWindows = format bg3 bg1 bg1
     , ppWsSep   = ""
-    , ppSep     = " "
+    , ppSep     = "   "
     , ppTitle   = shorten 50
     }
   

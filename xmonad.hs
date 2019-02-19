@@ -137,9 +137,14 @@ myKeys =
     , ("M-S-0"                      , windows $ W.shift "0")
     , ("M-S--"                      , windows $ W.shift "-")
     , ("M-S-="                      , windows $ W.shift "=")
-    ] ++ map autoBackAndForth myWorkspaces
-
-autoBackAndForth id = ("M-" ++ id, toggleOrView id)
+    ] 
+    ++ 
+    [("M-" ++ id, toggleOrView id) | id <- myWorkspaces] -- auto back and forth
+    ++
+    [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
+         | (key, scr)  <- zip "wer" [1,0,2] -- was [0..] *** change to match your screen order ***
+         , (action, mask) <- [ (W.view, "") , (W.shift, "S-")]
+    ]
 
 --- logging {{{1
 myLogHook dbus = def 

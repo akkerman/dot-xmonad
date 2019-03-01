@@ -59,7 +59,6 @@ myLayout = avoidStruts $ smartBorders $
 
 myScratchpads = 
     [ NS "spotify" "spotify" (className =? "Spotify") defaultFloating
-    , NS "htop" "st -e htop" (title =? "htop") defaultFloating
     , NS "arandr" "arandr" (className =? "Arandr") defaultFloating
     ]
 

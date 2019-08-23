@@ -6,7 +6,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Layout.Named
-import XMonad.Layout.Maximize
+import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPane
@@ -49,9 +49,9 @@ nameClick name = named $ renameLayout name
 myLayout = avoidStruts $ smartBorders $
     tiled ||| three ||| two
     where 
-        three = nameClick "|||" $ maximizeWithPadding 2 $ gaps $ ThreeColMid nmaster delta (5/12)
-        two   = nameClick "[]|" $ maximizeWithPadding 2 $ gaps $ TwoPane delta ratio
-        tiled = nameClick "[]=" $ maximizeWithPadding 2 $ gaps $ Tall nmaster delta ratio
+        three = nameClick "|||" $ maximizeWithPadding 20 $ gaps $ ThreeColMid nmaster delta (5/12)
+        two   = nameClick "[]|" $ maximizeWithPadding 20 $ gaps $ TwoPane delta ratio
+        tiled = nameClick "[]=" $ maximizeWithPadding 20 $ gaps $ Tall nmaster delta ratio
         nmaster = 1
         ratio = 2/3
         delta = 3/100

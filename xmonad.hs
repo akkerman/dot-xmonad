@@ -75,6 +75,7 @@ myManageHook = composeAll
      viewShift = doF . liftM2 (.) W.greedyView W.shift
           
 --- statusbar {{{1
+-- fontawesome icons
 icon "1" = "\xf120"
 icon "2" = "\xf268"
 icon "3" = "\xf16c"
@@ -85,7 +86,7 @@ icon "7" = "\xf075"
 icon "8" = "\xf17c"
 icon "9" = "\xf02d"
 icon "0" = "\xf1de"
-icon "-" = "\xf120"
+icon "-" = "\xf26c"
 icon "=" = "\xf0f4"
 icon n = n
 

@@ -9,7 +9,7 @@ import XMonad.Layout.Named
 import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.TwoPane
+import XMonad.Layout.Grid
 import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad
@@ -47,10 +47,10 @@ renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $ smartBorders $
-    tiled ||| three ||| two
+    three ||| tiled ||| grid
     where 
-        three = nameClick "|||" $ maximizeWithPadding 20 $ gaps $ ThreeColMid nmaster delta (5/12)
-        two   = nameClick "[]|" $ maximizeWithPadding 20 $ gaps $ TwoPane delta ratio
+        three = nameClick "|||" $ maximizeWithPadding 20 $ gaps $ ThreeCol nmaster delta (5/12)
+        grid  = nameClick "[+]" $ maximizeWithPadding 20 $ gaps $ Grid
         tiled = nameClick "[]=" $ maximizeWithPadding 20 $ gaps $ Tall nmaster delta ratio
         nmaster = 1
         ratio = 2/3
@@ -111,7 +111,7 @@ myKeys =
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
     , ("M-d"                        , spawn ("dmenu_run" ++ dmenu_settings))
     , ("M-S-t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
-    , ("M-S-p"                      , spawn ("$HOME/.xmonad/dmenu_pdf.sh" ++ dmenu_settings))
+    , ("M-S-p"                      , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-S-d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
     , ("M-S-g"                      , spawn "chromium --incognito")
@@ -127,6 +127,7 @@ myKeys =
     , ("<XF86MonBrightnessDown>"    , spawn "light -U 5")
     , ("M-b"                        , sendMessage $ ToggleStrut U) --- show/hide polybar
     , ("M-<Return>"                 , spawn "/usr/local/bin/st")
+    , ("M1-M-<Return>"              , spawn "/usr/local/bin/st&/usr/local/bin/st&/usr/local/bin/st")
     , ("M-S-<Return>"               , windows W.swapMaster)
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")

@@ -1,7 +1,7 @@
 --- imports {{{1
 import XMonad
 import XMonad.Actions.CycleWS
-import XMonad.Actions.UpdatePointer
+-- import XMonad.Actions.UpdatePointer
 import XMonad.Hooks.DynamicLog 
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -10,6 +10,7 @@ import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.Grid
+import XMonad.Layout.Tabbed
 import XMonad.Layout.NoBorders
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad
@@ -111,12 +112,12 @@ myKeys =
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
     , ("M-d"                        , spawn ("dmenu_run" ++ dmenu_settings))
     , ("M-S-t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
-    , ("M-S-p"                      , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
+    , ("M-p"                        , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-S-d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
+    , ("M-S-f"                      , spawn "firefox")
     , ("M-S-g"                      , spawn "chromium --incognito")
     , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
-    , ("M-p"                        , spawn "chromium --profile-directory=Default --app-id=amfkemaodmghlnknncknfhcmmiclmbpa") -- plex
     , ("M-S-m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
 
     , ("<XF86AudioPlay>"            , spawn "playerctl play-pause")
@@ -187,7 +188,7 @@ main = do
     xmonad $ docks $ def
         { manageHook = myManageHook <+> manageHook def
         , layoutHook = myLayout
-        , logHook = dynamicLogWithPP (myLogHook dbus) >> updatePointer (0.5,0) (0,0)
+        , logHook = dynamicLogWithPP (myLogHook dbus) 
         , modMask = modm     -- Rebind Mod to the Windows key
         , workspaces = myWorkspaces
         , terminal = "st"

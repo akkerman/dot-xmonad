@@ -1,6 +1,8 @@
 #!/bin/sh
 
-choice=$(echo -e "polybar\ncompton" | dmenu -i "$@")
+choice=$(echo -e "restart status bar\nenable transparancy\ndisable transparancy" | dmenu -i "$@")
 
-[ "$choice" = "polybar" ] && $HOME/.config/polybar/launch.sh
-[ "$choice" = "compton" ] && $HOME/.config/compton/launch.sh
+[ "$choice" = "restart status bar" ] && $HOME/.config/polybar/launch.sh
+[ "$choice" = "enable transparancy" ] && $HOME/.config/compton/launch.sh
+[ "$choice" = "disable transparancy" ] && killall compton
+

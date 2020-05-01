@@ -111,6 +111,7 @@ dmenu_settings = " -nb '" ++ bg2 ++ "' -nf '" ++ fg ++ "' -sb '" ++ orange ++ "'
 myKeys = 
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
     , ("M-d"                        , spawn ("dmenu_run" ++ dmenu_settings))
+    , ("M-S-r"                      , spawn ("$HOME/.config/xmonad/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-S-t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
     , ("M-p"                        , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-S-d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))

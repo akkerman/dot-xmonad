@@ -1,19 +1,19 @@
 --- imports {{{1
 import XMonad
 import XMonad.Actions.CycleWS
--- import XMonad.Actions.UpdatePointer
-import XMonad.Hooks.DynamicLog 
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Layout.Named
+
+import XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppHiddenNoWindows, ppOutput, ppSep, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, dynamicLogWithPP)
+import XMonad.Hooks.ManageDocks (ToggleStruts(..), avoidStruts, docks, manageDocks, Direction2D(U))
+
 import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
-import XMonad.Layout.Spacing
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.Grid
-import XMonad.Layout.Tabbed
-import XMonad.Layout.NoBorders
+import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
+import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
+import XMonad.Layout.Named (named)
+import XMonad.Layout.Spacing (Border(..), spacingRaw)
+import XMonad.Layout.ThreeColumns (ThreeCol(..))
+
 import XMonad.Util.EZConfig(additionalKeysP)
-import XMonad.Util.NamedScratchpad
+import XMonad.Util.NamedScratchpad(defaultFloating, namedScratchpadAction, NamedScratchpad(NS))
 import XMonad.Util.Run(spawnPipe)
 
 import Control.Monad (liftM2)
@@ -47,11 +47,10 @@ bg3     = "#665c54"
 renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  " ++ name ++ "  %{-u}%{B- A-}")
 nameClick name = named $ renameLayout name
 
-myLayout = avoidStruts $ smartBorders $
-    three ||| tiled ||| grid
+myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
+    three ||| tiled
     where 
         three = nameClick "|||" $ maximizeWithPadding 20 $ gaps $ ThreeCol nmaster delta (5/12)
-        grid  = nameClick "[+]" $ maximizeWithPadding 20 $ gaps $ Grid
         tiled = nameClick "[]=" $ maximizeWithPadding 20 $ gaps $ Tall nmaster delta ratio
         nmaster = 1
         ratio = 2/3
@@ -128,13 +127,14 @@ myKeys =
     , ("<XF86MonBrightnessUp>"      , spawn "light -A 5")
     , ("<XF86MonBrightnessDown>"    , spawn "light -U 5")
     , ("M-b"                        , sendMessage $ ToggleStrut U) --- show/hide polybar
-    , ("M-<Return>"                 , spawn "/usr/local/bin/st")
-    , ("M1-M-<Return>"              , spawn "/usr/local/bin/st&/usr/local/bin/st&/usr/local/bin/st")
+    , ("M-n"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
+    , ("M-C-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-S-<Return>"               , windows W.swapMaster)
+    , ("M-<Return>"                 , windows W.focusMaster)
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
-    , ("M-f"                        , withFocused (sendMessage . maximizeRestore))
+    , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
 
     , ("M-<Backspace>"              , kill)
     , ("M-S-0"                      , windows $ W.shift "0")

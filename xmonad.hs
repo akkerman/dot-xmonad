@@ -110,37 +110,45 @@ dmenu_settings = " -nb '" ++ bg2 ++ "' -nf '" ++ fg ++ "' -sb '" ++ orange ++ "'
 
 myKeys = 
     [ ("M4-M1-l"                    , spawn "slock") -- lock screen
-    , ("M-d"                        , spawn ("dmenu_run" ++ dmenu_settings))
-    , ("M-S-r"                      , spawn ("$HOME/.config/xmonad/dmenu_restart.sh" ++ dmenu_settings))
+
+    -- launchers
+    , ("M-S-d"                      , spawn ("dmenu_run" ++ dmenu_settings))
+    , ("M-d"                        , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
+    , ("M-r"                        , spawn ("$HOME/.config/xmonad/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-S-t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
     , ("M-p"                        , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
-    , ("M-S-d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
+    , ("M-m"                        , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
+
+    -- programs
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
     , ("M-S-f"                      , spawn "firefox")
     , ("M-S-g"                      , spawn "chromium --incognito")
     , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
-    , ("M-S-m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
 
+    , ("M-C-<Return>"               , spawn "/usr/local/bin/st")
+    , ("M-<Backspace>"              , kill)
+
+    -- modify screen/layout
+    , ("M-S-<Return>"               , windows W.swapMaster)
+    , ("M-<Return>"                 , dwmpromote)
+    , ("M-b"                        , sendMessage $ ToggleStrut U)    --- show/hide polybar
+    , ("M-n"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
+    , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
+
+    , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
+    , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
+
+    , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
+    , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
+    , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
+
+    -- media
     , ("<XF86AudioPlay>"            , spawn "playerctl play-pause")
     , ("<XF86AudioStop>"            , spawn "playerctl stop")
     , ("<XF86AudioNext>"            , spawn "playerctl next")
     , ("<XF86AudioPrev>"            , spawn "playerctl previous")
     , ("<XF86MonBrightnessUp>"      , spawn "light -A 5")
     , ("<XF86MonBrightnessDown>"    , spawn "light -U 5")
-    , ("M-b"                        , sendMessage $ ToggleStrut U) --- show/hide polybar
-    , ("M-n"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
-    , ("M-C-<Return>"               , spawn "/usr/local/bin/st")
-    , ("M-S-<Return>"               , windows W.swapMaster)
-    , ("M-<Return>"                 , dwmpromote)
-
-    , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
-    , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
-    , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
-
-    , ("M-<Backspace>"              , kill)
-    , ("M-S-0"                      , windows $ W.shift "0")
-    , ("M-S--"                      , windows $ W.shift "-")
-    , ("M-S-="                      , windows $ W.shift "=")
     ] 
     ++ 
     [("M-" ++ id, toggleOrView id) | id <- myWorkspaces] -- auto back and forth

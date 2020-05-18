@@ -1,4 +1,5 @@
 export _JAVA_AWT_WM_NONREPARENTING=1
+export GTK_THEME=Adwaita:dark
 
 xmonad --recompile
 

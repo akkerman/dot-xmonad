@@ -1,6 +1,7 @@
 --- imports {{{1
 import XMonad
 import XMonad.Actions.CycleWS
+import XMonad.Actions.DwmPromote
 
 import XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppHiddenNoWindows, ppOutput, ppSep, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, dynamicLogWithPP)
 import XMonad.Hooks.ManageDocks (ToggleStruts(..), avoidStruts, docks, manageDocks, Direction2D(U))
@@ -130,7 +131,7 @@ myKeys =
     , ("M-n"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
     , ("M-C-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-S-<Return>"               , windows W.swapMaster)
-    , ("M-<Return>"                 , windows W.focusMaster)
+    , ("M-<Return>"                 , dwmpromote)
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")

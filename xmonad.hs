@@ -6,7 +6,6 @@ import XMonad.Actions.DwmPromote
 import XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppHiddenNoWindows, ppOutput, ppSep, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, dynamicLogWithPP)
 import XMonad.Hooks.ManageDocks (ToggleStruts(..), avoidStruts, docks, manageDocks, Direction2D(U))
 
-import XMonad.Layout.Maximize (maximizeWithPadding, maximizeRestore)
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
 import XMonad.Layout.Named (named)
@@ -51,8 +50,8 @@ nameClick name = named $ renameLayout name
 myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
     three ||| tiled
     where 
-        three = nameClick "|||" $ maximizeWithPadding 20 $ gaps $ ThreeCol nmaster delta (5/12)
-        tiled = nameClick "[]=" $ maximizeWithPadding 20 $ gaps $ Tall nmaster delta ratio
+        three = nameClick "|||" $ gaps $ ThreeCol nmaster delta (5/12)
+        tiled = nameClick "[]=" $ gaps $ Tall nmaster delta ratio
         nmaster = 1
         ratio = 2/3
         delta = 3/100

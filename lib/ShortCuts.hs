@@ -4,14 +4,15 @@ module ShortCuts (
 
 import XMonad
 
+import XMonad.Hooks.ManageDocks (ToggleStruts(..), Direction2D(U))
 
-import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
-import XMonad.Hooks.ManageDocks (ToggleStruts(..), avoidStruts, docks, manageDocks, Direction2D(U))
 
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
+import XMonad.Layout.MultiToggle (Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
+
+import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad(defaultFloating, namedScratchpadAction, NamedScratchpad(NS))
 
 import qualified XMonad.StackSet as W

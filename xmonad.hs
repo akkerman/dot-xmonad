@@ -1,18 +1,15 @@
 --- imports {{{1
 import XMonad
-import XMonad.Actions.CycleWS
-import XMonad.Actions.DwmPromote
 
 import XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppHiddenNoWindows, ppOutput, ppSep, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, dynamicLogWithPP)
-import XMonad.Hooks.ManageDocks (ToggleStruts(..), avoidStruts, docks, manageDocks, Direction2D(U))
+import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
 
-import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), Toggle(..), (??))
+import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
 import XMonad.Layout.Named (named)
 import XMonad.Layout.Spacing (Border(..), spacingRaw)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 
-import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.Run(spawnPipe)
 
 import Control.Monad (liftM2)

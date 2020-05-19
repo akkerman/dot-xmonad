@@ -12,7 +12,8 @@ xmonad --recompile
 /usr/bin/pasystray &      # sound
 /usr/sbin/dropbox start & # file sharing
 /usr/sbin/flameshot &     # screen shots
-/usr/bin/synergy &        # share mouse & keyboard
+/usr/bin/synergyc octotron & # share mouse & keyboard
+blueman-applet &
 
 # utils
 /usr/sbin/dunst &

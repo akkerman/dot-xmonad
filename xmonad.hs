@@ -1,4 +1,3 @@
---- imports {{{1
 import XMonad
 
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
@@ -24,36 +23,7 @@ import qualified XMonad.StackSet as W
 import ShortCuts  (modify)
 import Colors
 import StatusBar (myLogHook)
-
-
---- layout {{{1
-renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  " ++ name ++ "  %{-u}%{B- A-}")
-nameClick name = named $ renameLayout name
-
-myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
-    three ||| tiled
-    where 
-        three = nameClick "|||" $ gaps $ ThreeCol nmaster delta (5/12)
-        tiled = nameClick "[]=" $ gaps $ Tall nmaster delta ratio
-        nmaster = 1
-        ratio = 2/3
-        delta = 3/100
-        gaps = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
-
-
-myManageHook = composeAll
-   [ className =? "Xmessage"        --> doFloat
-   , className =? "Blueman-manager" --> doFloat
-   , className =? "Arandr"          --> doFloat
-   , className =? "Spotify"         --> doFloat  -- TODO this doesn't work
-   , className =? "Slack"           --> viewShift "7"
-   , className =? "TelegramDesktop" --> viewShift "7"
-   , manageDocks
-   ]
-   where 
-     viewShift = doF . liftM2 (.) W.greedyView W.shift
-
---- main {{{1
+import Layout (modify)
 
 main = do
     dbus <- D.connectSession
@@ -61,11 +31,8 @@ main = do
     D.requestName dbus (D.busName_ "org.xmonad.Log")
         [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
-    xmonad $ docks $ ShortCuts.modify $ def
-        { manageHook = myManageHook <+> manageHook def
-        , layoutHook = myLayout
-        , logHook = dynamicLogWithPP (StatusBar.myLogHook dbus) 
-        -- , workspaces = myWorkspaces
+    xmonad $ docks $ ShortCuts.modify $ Layout.modify $ def
+        { logHook = dynamicLogWithPP (StatusBar.myLogHook dbus) 
         , terminal = "st"
         , normalBorderColor = blue
         , focusedBorderColor = orange

@@ -3,7 +3,7 @@ module StatusBar (
 ) where
 
 import XMonad
-import XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppHiddenNoWindows, ppOutput, ppSep, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap)
+import XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppHiddenNoWindows, ppOutput, ppSep, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, dynamicLogWithPP)
 import qualified DBus as D
 import qualified DBus.Client as D
 import qualified Codec.Binary.UTF8.String as UTF8
@@ -39,8 +39,8 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
         close   = "%{B- F- A-}"
         padding = "   "
 
-myLogHook dbus = def 
-    { ppOutput  = dbusOutput dbus
+myLogHook dbus = 
+    dynamicLogWithPP $ def { ppOutput  = dbusOutput dbus
     , ppCurrent = format fg bg1 orange
     , ppVisible = format fg bg1 blue
     , ppUrgent  = format red fg red

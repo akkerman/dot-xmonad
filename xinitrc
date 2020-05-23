@@ -4,7 +4,7 @@ export GTK_THEME=Adwaita:dark
 xmonad --recompile
 
 /home/akkerman/.screenlayout/default          # xrandr
-/home/akkerman/.fehbg                         # background
+# /home/akkerman/.fehbg                       # background
 # /home/akkerman/.config/compton/launch.sh &  # transparency / fade
 /home/akkerman/.config/polybar/launch.sh &    # dock / statusbar
 

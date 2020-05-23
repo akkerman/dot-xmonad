@@ -18,6 +18,12 @@ import XMonad.Util.NamedScratchpad(defaultFloating, namedScratchpadAction, Named
 import qualified XMonad.StackSet as W
 
 import Colors
+
+import XMonad.Prompt.Ssh (sshPrompt)
+import XMonad.Prompt.Shell (shellPrompt)
+import Prompt (promptCfg)
+
+
 myWorkspaces = map show ([1..9 :: Int]) ++ ["0", "-", "="]
 
 myScratchpads = 
@@ -44,6 +50,10 @@ modify conf = conf
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
     , ("M-d p"                      , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-d m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
+
+    -- prompt
+    , ("M-d s"                      , sshPrompt promptCfg)
+    , ("M-d <Return>"               , shellPrompt promptCfg)
 
     -- programs
     , ("M-g"                        , spawn "chromium --profile-directory=Default")

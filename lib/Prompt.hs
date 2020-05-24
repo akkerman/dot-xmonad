@@ -1,8 +1,9 @@
 module Prompt ( promptCfg ) where
 
+import XMonad
 import XMonad.Prompt
+import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 
-import Data.List (isSubsequenceOf)
 import Data.Maybe (isJust)
 
 import Colors
@@ -21,11 +22,10 @@ promptCfg = def
       , historySize         = 256
       , historyFilter       = id
       , defaultText         = []
-      , autoComplete        = Just 1    -- set Just 100000 for .1 sec
+      , autoComplete        = Nothing -- Just 1    -- set Just 100000 for .1 sec
       , showCompletionOnTab = False
-      , searchPredicate     = isSubsequenceOf
+      , searchPredicate     = fuzzyMatch
+      , sorter              = fuzzySort
       , alwaysHighlight     = True
       , maxComplRows        = Nothing        -- set to Just 5 for 5 rows
       }
-
-

@@ -36,8 +36,8 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
         ln      = "%{u" ++ line ++ "}"
         bg      = "%{B" ++ background ++ "}"
         fg      = "%{F" ++ foreground ++ "}"
-        close   = "%{B- F- A-}"
-        padding = "   "
+        close   = "%{u#00000000}%{B- F- A-}"
+        padding = "  "
 
 myLogHook dbus = 
     dynamicLogWithPP $ def { ppOutput  = dbusOutput dbus
@@ -46,7 +46,7 @@ myLogHook dbus =
     , ppUrgent  = format red fg red
     , ppHidden  = format fg bg1 bg1
     , ppHiddenNoWindows = format bg3 bg1 bg1
-    , ppWsSep   = ""
+    , ppWsSep   = " "
     , ppSep     = "   "
     , ppTitle   = shorten 50
     }

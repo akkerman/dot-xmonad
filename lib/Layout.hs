@@ -1,4 +1,4 @@
-module Layout ( Layout.modify ) where
+module Layout ( Layout.modify, Layout.myScratchpads ) where
 
 import XMonad
 
@@ -11,6 +11,7 @@ import XMonad.Layout.Named (named)
 import XMonad.Layout.Spacing (Border(..), spacingRaw)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 
+import XMonad.Util.NamedScratchpad(namedScratchpadManageHook, defaultFloating, nonFloating, customFloating, namedScratchpadAction, NamedScratchpad(NS))
 import XMonad.Util.Run(spawnPipe)
 
 import Control.Monad (liftM2)
@@ -38,11 +39,16 @@ myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
         gaps = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
 
 
+myScratchpads = 
+    [ NS "spotify" "spotify" (className =? "Spotify") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+    , NS "arandr" "arandr" (className =? "Arandr") (customFloating $ W.RationalRect (1/8) (1/8) (1/3) (1/3))
+    , NS "htop" "st -t htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+    , NS "memento" "st -t memento -e nvim '+:cd ~/git/memento' -S Session.vim" (title =? "memento") nonFloating
+    ]
+
 myManageHook = composeAll
    [ className =? "Xmessage"        --> doFloat
    , className =? "Blueman-manager" --> doFloat
-   , className =? "Arandr"          --> doFloat
-   , className =? "Spotify"         --> doFloat  -- TODO this doesn't work
    , className =? "Slack"           --> viewShift "7"
    , className =? "TelegramDesktop" --> viewShift "7"
 
@@ -59,6 +65,6 @@ myManageHook = composeAll
 
 
 modify conf = conf
-    { manageHook = myManageHook <+> manageHook def
+    { manageHook = namedScratchpadManageHook myScratchpads <+> myManageHook <+> manageHook def
     , layoutHook = myLayout
     }

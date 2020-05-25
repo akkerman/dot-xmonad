@@ -13,7 +13,7 @@ import XMonad.Layout.MultiToggle (Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
 
 import XMonad.Util.EZConfig(additionalKeysP)
-import XMonad.Util.NamedScratchpad(defaultFloating, namedScratchpadAction, NamedScratchpad(NS))
+import XMonad.Util.NamedScratchpad(namedScratchpadAction)
 
 import qualified XMonad.StackSet as W
 
@@ -22,14 +22,11 @@ import Colors
 import XMonad.Prompt.Ssh (sshPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import Prompt (promptCfg)
+import Layout (myScratchpads)
 
 
 myWorkspaces = map show ([1..9 :: Int]) ++ ["0", "-", "="]
 
-myScratchpads = 
-    [ NS "spotify" "spotify" (className =? "Spotify") defaultFloating
-    , NS "arandr" "arandr" (className =? "Arandr") defaultFloating
-    ]
 
 dmenu_settings = " -nb '" ++ bg2 ++ "' -nf '" ++ fg ++ "' -sb '" ++ orange ++ "' -sf '" ++ bg1 ++ "' -fn terminus-12:normal -h 26"
 
@@ -72,6 +69,9 @@ modify conf = conf
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
+    , ("M-h"                        , namedScratchpadAction myScratchpads "htop")
+    , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
+
 
     , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
     , ("M-S--"                      , windows $ W.shift "-") -- workspace 11

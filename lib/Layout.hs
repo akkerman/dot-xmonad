@@ -52,10 +52,6 @@ myManageHook = composeAll
    , className =? "Slack"           --> viewShift "7"
    , className =? "TelegramDesktop" --> viewShift "7"
 
-   , title =? "mux xmonad"          --> viewShift "="
-   , title =? "mux rules"           --> viewShift "4"
-   , title =? "mux analytics"       --> viewShift "4"
-   , title =? "mux capo"            --> viewShift "4"
    , title =? "mux memento"         --> viewShift "9"
 
    , manageDocks

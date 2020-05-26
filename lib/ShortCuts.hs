@@ -26,7 +26,7 @@ import Prompt (promptCfg)
 import Layout (myScratchpads)
 
 
-myWorkspaces = map show ([1..9 :: Int]) ++ ["0", "-", "="]
+myWorkspaces = map show ([1..9 :: Int])-- ++ ["0", "-", "="]
 
 
 dmenu_settings = " -nb '" ++ bg2 ++ "' -nf '" ++ fg ++ "' -sb '" ++ orange ++ "' -sf '" ++ bg1 ++ "' -fn terminus-12:normal -h 26"
@@ -74,9 +74,9 @@ modify conf = conf
     , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
 
 
-    , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
-    , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
-    , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
+    -- , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
+    -- , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
+    -- , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
 
     , ("M-u"                        , switchProjectPrompt promptCfg)
     , ("M-S-u"                      , shiftToProjectPrompt promptCfg)

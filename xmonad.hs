@@ -10,6 +10,7 @@ import ShortCuts  (modify)
 import Colors
 import StatusBar (myLogHook)
 import Layout (modify)
+import Projects (modify)
 
 main = do
     dbus <- D.connectSession
@@ -17,7 +18,7 @@ main = do
     D.requestName dbus (D.busName_ "org.xmonad.Log")
         [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
 
-    xmonad $ docks $ ShortCuts.modify $ Layout.modify $ def
+    xmonad $ docks $ ShortCuts.modify $ Projects.modify $ Layout.modify $ def
         { logHook = StatusBar.myLogHook dbus 
         , terminal = "st"
         , normalBorderColor = blue

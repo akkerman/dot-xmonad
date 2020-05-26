@@ -8,6 +8,7 @@ import XMonad.Hooks.ManageDocks (ToggleStruts(..), Direction2D(U))
 
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
+import XMonad.Actions.DynamicProjects
 
 import XMonad.Layout.MultiToggle (Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
@@ -69,13 +70,16 @@ modify conf = conf
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
-    , ("M-h"                        , namedScratchpadAction myScratchpads "htop")
+    -- , ("M-h"                        , namedScratchpadAction myScratchpads "htop")
     , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
 
 
     , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
     , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
     , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
+
+    , ("M-u"                        , switchProjectPrompt promptCfg)
+    , ("M-S-u"                      , shiftToProjectPrompt promptCfg)
 
     -- media
     , ("<XF86AudioPlay>"            , spawn "playerctl play-pause")

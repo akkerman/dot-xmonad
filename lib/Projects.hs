@@ -5,7 +5,11 @@ import XMonad.Actions.DynamicProjects
 
 projects :: [Project]
 projects =
-  [ Project { projectName      = "rules"
+  [ Project { projectName      = "1"
+            , projectDirectory = "~/"
+            , projectStartHook = Just $ do spawn "st"
+            }
+  , Project { projectName      = "rules"
             , projectDirectory = "~/git/dsplatform/dsp-rules-manager"
             , projectStartHook = Just $ do spawn "st -e tmuxinator rules"
                                            spawn "st -e nvim -S Session.vim"

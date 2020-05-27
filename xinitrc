@@ -4,7 +4,7 @@ export GTK_THEME=Adwaita:dark
 xmonad --recompile
 
 /home/akkerman/.screenlayout/default          # xrandr
-# /home/akkerman/.fehbg                       # background
+/home/akkerman/.fehbg                         # background
 # /home/akkerman/.config/compton/launch.sh &  # transparency / fade
 /home/akkerman/.config/polybar/launch.sh &    # dock / statusbar
 
@@ -12,8 +12,7 @@ xmonad --recompile
 /usr/bin/pasystray &      # sound
 /usr/sbin/dropbox start & # file sharing
 /usr/sbin/flameshot &     # screen shots
-/usr/bin/synergyc octotron & # share mouse & keyboard
-blueman-applet &
+/usr/bin/synergy &        # share mouse & keyboard
 
 # utils
 /usr/sbin/dunst &

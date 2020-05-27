@@ -1,7 +1,9 @@
-module Projects ( Projects.modify ) where
+module Projects ( Projects.modify, findProject ) where
 
 import XMonad (XConfig, spawn)
 import XMonad.Actions.DynamicProjects
+import Data.List (find)
+import Data.Maybe (fromMaybe)
 
 projects :: [Project]
 projects =
@@ -37,3 +39,15 @@ projects =
 
 modify:: XConfig a -> XConfig a
 modify conf = dynamicProjects projects conf
+
+firstProject :: Project
+firstProject = head projects
+
+findProject :: ProjectName -> Project
+findProject name = fromMaybe firstProject (maybeFindProject name)
+
+maybeFindProject :: ProjectName -> (Maybe Project)
+maybeFindProject name = find (matchProject name) projects
+
+matchProject :: ProjectName -> Project -> Bool
+matchProject name (Project projectName _ _)   = projectName == name

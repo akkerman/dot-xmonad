@@ -16,6 +16,8 @@ import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NO
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad(namedScratchpadAction)
 
+import Data.Maybe
+
 import qualified XMonad.StackSet as W
 
 import Colors
@@ -24,6 +26,7 @@ import XMonad.Prompt.Ssh (sshPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import Prompt (promptCfg)
 import Layout (myScratchpads)
+import Projects (findProject)
 
 
 myWorkspaces = map show ([1..9 :: Int])-- ++ ["0", "-", "="]
@@ -52,6 +55,8 @@ modify conf = conf
     -- prompt
     , ("M-d s"                      , sshPrompt promptCfg)
     , ("M-d <Return>"               , shellPrompt promptCfg)
+    , ("M-p"                        , switchProjectPrompt promptCfg)
+    , ("M-S-p"                      , shiftToProjectPrompt promptCfg)
 
     -- programs
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
@@ -70,16 +75,15 @@ modify conf = conf
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
-    -- , ("M-h"                        , namedScratchpadAction myScratchpads "htop")
-    , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
+    , ("M-S-h"                      , namedScratchpadAction myScratchpads "htop")
+    -- , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
 
+    , ("M-="                        , switchProject $ findProject "xmonad")
 
     -- , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
     -- , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
     -- , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
 
-    , ("M-u"                        , switchProjectPrompt promptCfg)
-    , ("M-S-u"                      , shiftToProjectPrompt promptCfg)
 
     -- media
     , ("<XF86AudioPlay>"            , spawn "playerctl play-pause")

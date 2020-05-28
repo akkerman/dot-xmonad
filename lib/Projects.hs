@@ -17,6 +17,11 @@ projects =
                                            spawn "st -e nvim -S Session.vim"
                                            spawn "chromium --new-window"
             }
+  , Project { projectName      = "Plex"
+            , projectDirectory = "~"
+            , projectStartHook = Just $ do 
+                spawn "chromium --app=https://app.plex.tv/desktop"
+            }
   , Project { projectName      = "analytics"
             , projectDirectory = "~/git/dsplatform/dsp-analytics-frontend"
             , projectStartHook = Just $ do spawn "st -e tmuxinator analytics"

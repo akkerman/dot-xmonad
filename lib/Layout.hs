@@ -5,9 +5,11 @@ import XMonad
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP)
 
+import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
 import XMonad.Layout.Named (named)
+import XMonad.Layout.Renamed (Rename)
 import XMonad.Layout.Spacing (Border(..), spacingRaw)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 
@@ -25,7 +27,10 @@ import qualified XMonad.StackSet as W
 import Colors
 
 
+renameLayout :: String -> String
 renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  " ++ name ++ "  %{-u}%{B- A-}")
+
+nameClick :: String -> l a -> ModifiedLayout Rename l a
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
@@ -38,21 +43,30 @@ myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
         delta = 3/100
         gaps = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
 
+floatMiddle :: ManageHook
+floatMiddle = customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)
 
+floatMiddleSmall :: ManageHook
+floatMiddleSmall = customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3)
+
+myScratchpads :: [NamedScratchpad]
 myScratchpads = 
-    [ NS "spotify" "spotify" (className =? "Spotify") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+    [ NS "spotify" "spotify" (className =? "Spotify") floatMiddle
     , NS "arandr" "arandr" (className =? "Arandr") (customFloating $ W.RationalRect (1/8) (1/8) (1/3) (1/3))
-    , NS "htop" "st -t htop -e htop" (title =? "htop") (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+    , NS "htop" "st -t htop -e htop" (title =? "htop") floatMiddle
     , NS "memento" "st -t memento -e nvim '+:cd ~/git/memento' -S Session.vim" (title =? "memento") nonFloating
     ]
 
 myManageHook = composeAll
-   [ className =? "Xmessage"        --> doFloat
-   , className =? "Blueman-manager" --> doFloat
-   , className =? "Slack"           --> viewShift "7"
-   , className =? "TelegramDesktop" --> viewShift "7"
+   [ className =? "Xmessage"          --> doFloat
+   , className =? "Blueman-manager"   --> doFloat
+   , className =? "Slack"             --> viewShift "7"
+   , className =? "TelegramDesktop"   --> viewShift "7"
+   , title =? "mux memento"           --> viewShift "9"
 
-   , title =? "mux memento"         --> viewShift "9"
+   ,(className =? "Synergy" <&&> title =? "Synergy 1 Pro" )       --> floatMiddle
+   ,(className =? "Synergy" <&&> title =? "Server Configuration") --> floatMiddleSmall
+
 
    , manageDocks
    ]
@@ -60,6 +74,7 @@ myManageHook = composeAll
      viewShift = doF . liftM2 (.) W.greedyView W.shift
 
 
+-- modify :: XConfig l -> XConfig ...
 modify conf = conf
     { manageHook = namedScratchpadManageHook myScratchpads <+> myManageHook <+> manageHook def
     , layoutHook = myLayout

@@ -39,6 +39,11 @@ projects =
             , projectStartHook = Just $ do spawn "chromium --new-window https://hackage.haskell.org/package/xmonad-contrib-0.16"
                                            spawn "st -e tmuxinator xmonad"
             }
+            
+  , Project { projectName      = "Running"
+            , projectDirectory = "~"
+            , projectStartHook = Just $ do spawn "chromium --new-window https://connect.garmin.com/modern/ https://www.strava.com/dashboard https://www.endomondo.com/home chrome-extension://dhiaggccakkgdfcadnklkbljcgicpckn/app/index.html#/fitnessTrend"
+            }
 
   ]
 

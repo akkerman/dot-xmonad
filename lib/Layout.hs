@@ -64,6 +64,7 @@ myManageHook = composeAll
    , className =? "TelegramDesktop"   --> viewShift "7"
    , title =? "mux memento"           --> viewShift "9"
 
+   , (className =? "Chromium" <&&> title =? "Open File") --> floatMiddle
    , (className =? "Chromium" <&&> title =? "Open Files") --> floatMiddle
    , (className =? "Chromium" <&&> title =? "Save File") --> floatMiddle
 

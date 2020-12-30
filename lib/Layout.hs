@@ -3,7 +3,7 @@ module Layout ( Layout.modify, Layout.myScratchpads ) where
 import XMonad
 
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP)
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap)
 
 import XMonad.Layout.LayoutModifier (ModifiedLayout)
 import XMonad.Layout.MultiToggle (mkToggle, EOT(EOT), Toggle(..), (??))
@@ -28,7 +28,13 @@ import Colors
 
 
 renameLayout :: String -> String
-renameLayout name = ("%{A1:xdotool key super+space:}%{B"++bg1++"}%{u"++bg1++"}  " ++ name ++ "  %{-u}%{B- A-}")
+renameLayout name = click ++ bg ++ ln ++ padding ++ name ++ padding ++ close
+    where
+      click   = "%{A1:xdotool key super+space:}"
+      bg      = "%{B" ++ bg1 ++ "}"
+      ln      = "%{u" ++ bg1 ++ "}"
+      close   = "%{u#00000000}%{B- A}"
+      padding = "  "
 
 nameClick :: String -> l a -> ModifiedLayout Rename l a
 nameClick name = named $ renameLayout name

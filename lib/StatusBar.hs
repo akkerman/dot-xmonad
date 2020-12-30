@@ -36,7 +36,7 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
         ln      = "%{u" ++ line ++ "}"
         bg      = "%{B" ++ background ++ "}"
         fg      = "%{F" ++ foreground ++ "}"
-        close   = "%{u#00000000}%{B- F- A-}"
+        close   = "%{u#00000000}%{B- F- A}"
         padding = "  "
 
 myLogHook dbus = 

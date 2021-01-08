@@ -23,6 +23,10 @@ projects =
                                            spawn "st -e nvim -S Session.vim"
                                            spawn "chromium --new-window"
             }
+  , Project { projectName      = "Haskell"
+            , projectDirectory = "~/git/learn/haskell"
+            , projectStartHook = Just $ do spawn "st -e tpwd"
+            }
   , Project { projectName      = "Plex"
             , projectDirectory = "~"
             , projectStartHook = Just $ do 
@@ -40,15 +44,21 @@ projects =
                                            spawn "st -e nvim -S Session.vim"
                                            spawn "chromium --new-window"
             }
+  , Project { projectName      = "services"
+            , projectDirectory = "~/git/dsplatform/dsp-analytics-services"
+            , projectStartHook = Just $ do spawn "st -e tmuxinator services"
+                                           spawn "st -e nvim -S Session.vim"
+                                           spawn "chromium --new-window"
+            }
   , Project { projectName      = "xmonad"
             , projectDirectory = "~/.config/xmonad"
             , projectStartHook = Just $ do spawn "chromium --new-window https://hackage.haskell.org/package/xmonad-contrib-0.16"
                                            spawn "st -e tmuxinator xmonad"
             }
-            
   , Project { projectName      = "Running"
             , projectDirectory = "~"
-            , projectStartHook = Just $ do spawn "chromium --new-window https://connect.garmin.com/modern/ https://www.strava.com/dashboard https://www.endomondo.com/home chrome-extension://dhiaggccakkgdfcadnklkbljcgicpckn/app/index.html#/fitnessTrend"
+            , projectStartHook = Just $ do 
+                 spawn "chromium --new-window https://connect.garmin.com/modern/ https://www.strava.com/dashboard https://www.endomondo.com/home chrome-extension://dhiaggccakkgdfcadnklkbljcgicpckn/app/index.html#/fitnessTrend"
             }
 
   ]

@@ -69,14 +69,14 @@ modify conf = conf
 
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)
-    , ("M-b"                        , sendMessage $ ToggleStrut U)    --- show/hide polybar
+    , ("M-b"                        , sendMessage $ ToggleStrut U)    --- overlap window over polybar
     , ("M-n"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
     , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
     , ("M-S-h"                      , namedScratchpadAction myScratchpads "htop")
-    -- , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
+    , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
 
     , ("M-="                        , switchProject $ findProject "xmonad")
 

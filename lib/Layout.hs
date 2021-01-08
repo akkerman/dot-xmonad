@@ -54,6 +54,7 @@ myScratchpads =
     [ NS "spotify" "spotify" (className =? "Spotify") floatMiddle
     , NS "arandr" "arandr" (className =? "Arandr") (customFloating $ W.RationalRect (1/8) (1/8) (1/3) (1/3))
     , NS "htop" "st -t htop -e htop" (title =? "htop") floatMiddle
+    , NS "terminal" "st -t termfloat" (title =? "koquake") floatMiddle
     , NS "memento" "st -t memento -e nvim '+:cd ~/git/memento' -S Session.vim" (title =? "memento") nonFloating
     ]
 
@@ -68,8 +69,12 @@ myManageHook = composeAll
    , (className =? "Chromium" <&&> title =? "Open Files") --> floatMiddle
    , (className =? "Chromium" <&&> title =? "Save File") --> floatMiddle
 
-   ,(className =? "Synergy" <&&> title =? "Synergy 1 Pro" )       --> floatMiddle
-   ,(className =? "Synergy" <&&> title =? "Server Configuration") --> floatMiddleSmall
+   , (className =? "Synergy" <&&> title =? "Synergy 1 Pro" )       --> floatMiddle
+   , (className =? "Synergy" <&&> title =? "Server Configuration") --> floatMiddleSmall
+
+   , (className =? "GoldenDict" ) --> floatMiddle
+
+   , (className =? "Spotify" ) --> floatMiddle
 
 
    , manageDocks

@@ -17,6 +17,12 @@ projects =
                                            spawn "st -e nvim -S Session.vim"
                                            spawn "chromium --new-window"
             }
+  , Project { projectName      = "EnergieOnderbrekingen"
+            , projectDirectory = "~/git/energieonderbrekingen/development-vm/energieonderbrekingen.nl"
+            , projectStartHook = Just $ do spawn "st -e tmuxinator energieonderbrekingen"
+                                           spawn "st -e nvim -S Session.vim"
+                                           spawn "chromium --new-window"
+            }
   , Project { projectName      = "Plex"
             , projectDirectory = "~"
             , projectStartHook = Just $ do 

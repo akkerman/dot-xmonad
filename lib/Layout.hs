@@ -86,6 +86,7 @@ myManageHook = composeAll
    , (className =? "Spotify" ) --> floatMiddle
    , (className =? "Pavucontrol") --> floatTopSmall
    , (className =? "Pavumeter") --> floatTopSmall
+   , (className =? "flameshot") --> floatMiddleSmall
 
 
    , manageDocks

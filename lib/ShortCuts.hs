@@ -66,6 +66,8 @@ modify conf = conf
 
     , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-<Backspace>"              , kill)
+    , ("<Print>"                    , spawn "flameshot gui")
+    , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
 
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)

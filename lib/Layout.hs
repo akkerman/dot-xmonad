@@ -55,6 +55,9 @@ floatMiddle = customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)
 floatMiddleSmall :: ManageHook
 floatMiddleSmall = customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3)
 
+floatTopSmall :: ManageHook
+floatTopSmall = customFloating $ W.RationalRect (2/3) 0 (1/3) (1/3)
+
 myScratchpads :: [NamedScratchpad]
 myScratchpads = 
     [ NS "spotify" "spotify" (className =? "Spotify") floatMiddle
@@ -81,6 +84,8 @@ myManageHook = composeAll
    , (className =? "GoldenDict" ) --> floatMiddle
 
    , (className =? "Spotify" ) --> floatMiddle
+   , (className =? "Pavucontrol") --> floatTopSmall
+   , (className =? "Pavumeter") --> floatTopSmall
 
 
    , manageDocks

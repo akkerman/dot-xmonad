@@ -51,6 +51,7 @@ modify conf = conf
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
     , ("M-d p"                      , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-d m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
+    , ("M-d w"                      , spawn ("$HOME/.xmonad/change-wallpaper.sh " ++ dmenu_settings))
 
     -- prompt
     , ("M-d s"                      , sshPrompt promptCfg)

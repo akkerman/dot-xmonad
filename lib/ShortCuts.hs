@@ -9,12 +9,16 @@ import XMonad.Hooks.ManageDocks (ToggleStruts(..), Direction2D(U))
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
 import XMonad.Actions.DynamicProjects
+import XMonad.Actions.WithAll (killAll)
 
 import XMonad.Layout.MultiToggle (Toggle(..), (??))
 import XMonad.Layout.MultiToggle.Instances ( StdTransformers( NBFULL, MIRROR, NOBORDERS ))
 
 import XMonad.Util.EZConfig(additionalKeysP)
 import XMonad.Util.NamedScratchpad(namedScratchpadAction)
+import XMonad.Util.NamedActions(addName)
+import XMonad.Prompt.ConfirmPrompt
+import XMonad.Prompt.Theme
 
 import Data.Maybe
 
@@ -24,7 +28,7 @@ import Colors
 
 import XMonad.Prompt.Ssh (sshPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
-import Prompt (promptCfg)
+import Prompt (promptCfg, promptDangerCfg)
 import Layout (myScratchpads)
 import Projects (findProject)
 
@@ -67,6 +71,7 @@ modify conf = conf
 
     , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-<Backspace>"              , kill)
+    , ("M-S-<Backspace>"            , confirmPrompt promptDangerCfg "close all windows on this workspace" $ killAll)
     , ("<Print>"                    , spawn "flameshot gui")
     , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
 
@@ -78,7 +83,6 @@ modify conf = conf
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
-    , ("M-S-h"                      , namedScratchpadAction myScratchpads "htop")
     , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
 
     , ("M-="                        , switchProject $ findProject "xmonad")

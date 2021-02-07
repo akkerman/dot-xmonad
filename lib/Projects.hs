@@ -2,8 +2,22 @@ module Projects ( Projects.modify, findProject ) where
 
 import XMonad (XConfig, spawn)
 import XMonad.Actions.DynamicProjects
+import XMonad.Util.Run (runInTerm)
 import Data.List (find)
 import Data.Maybe (fromMaybe)
+
+
+termOption prog session = "-n "++prog++"_"++session++" -t '"++prog++" '"++session
+tmux session        = runInTerm (termOption "tmux" session) ("tmuxinator "++session)
+nvimSession session = runInTerm (termOption "nvim" session) ("nvim -S Session.vim")
+
+myProject session dir = Project 
+   { projectName      = session
+   , projectDirectory = dir
+   , projectStartHook = Just $ do tmux session
+                                  nvimSession session
+                                  spawn "chromium --new-window"
+   }
 
 projects :: [Project]
 projects =
@@ -11,18 +25,13 @@ projects =
             , projectDirectory = "~/"
             , projectStartHook = Just $ do spawn "st"
             }
-  , Project { projectName      = "rules"
-            , projectDirectory = "~/git/dsplatform/dsp-rules-manager"
-            , projectStartHook = Just $ do spawn "st -e tmuxinator rules"
-                                           spawn "st -e nvim -S Session.vim"
-                                           spawn "chromium --new-window"
-            }
-  , Project { projectName      = "EnergieOnderbrekingen"
-            , projectDirectory = "~/git/energieonderbrekingen/development-vm/energieonderbrekingen.nl"
-            , projectStartHook = Just $ do spawn "st -e tmuxinator energieonderbrekingen"
-                                           spawn "st -e nvim -S Session.vim"
-                                           spawn "chromium --new-window"
-            }
+
+  , myProject "analytics"              "~/git/dsplatform/dsp-analytics-frontend"
+  , myProject "services"               "~/git/dsplatform/dsp-analytics-services"
+  , myProject "rules"                  "~/git/dsplatform/dsp-rules-manager"
+  , myProject "capo"                   "~/git/dsplatform/capo-frontend"
+  , myProject "energieonderbrekingen"  "~/git/energieonderbrekingen/development-vm/energieonderbrekingen.nl"
+
   , Project { projectName      = "Haskell"
             , projectDirectory = "~/git/learn/haskell"
             , projectStartHook = Just $ do spawn "st -e tpwd"
@@ -32,33 +41,20 @@ projects =
             , projectStartHook = Just $ do 
                 spawn "chromium --app=https://app.plex.tv/desktop"
             }
-  , Project { projectName      = "analytics"
-            , projectDirectory = "~/git/dsplatform/dsp-analytics-frontend"
-            , projectStartHook = Just $ do spawn "st -e tmuxinator analytics"
-                                           spawn "st -e nvim -S Session.vim"
-                                           spawn "chromium --new-window"
-            }
-  , Project { projectName      = "capo"
-            , projectDirectory = "~/git/dsplatform/capo-frontend"
-            , projectStartHook = Just $ do spawn "st -e tmuxinator capo"
-                                           spawn "st -e nvim -S Session.vim"
-                                           spawn "chromium --new-window"
-            }
-  , Project { projectName      = "services"
-            , projectDirectory = "~/git/dsplatform/dsp-analytics-services"
-            , projectStartHook = Just $ do spawn "st -e tmuxinator services"
-                                           spawn "st -e nvim -S Session.vim"
-                                           spawn "chromium --new-window"
-            }
   , Project { projectName      = "xmonad"
             , projectDirectory = "~/.config/xmonad"
-            , projectStartHook = Just $ do spawn "chromium --new-window https://hackage.haskell.org/package/xmonad-contrib-0.16"
-                                           spawn "st -e tmuxinator xmonad"
+            , projectStartHook = Just $ do tmux "xmonad"
+                                           spawn "chromium --new-window https://hackage.haskell.org/package/xmonad-contrib-0.16"
             }
-  , Project { projectName      = "Running"
+  , Project { projectName      = "demo"
             , projectDirectory = "~"
-            , projectStartHook = Just $ do 
-                 spawn "chromium --new-window https://connect.garmin.com/modern/ https://www.strava.com/dashboard https://www.endomondo.com/home chrome-extension://dhiaggccakkgdfcadnklkbljcgicpckn/app/index.html#/fitnessTrend"
+            , projectStartHook  = Just $ do 
+                                            spawn "/usr/lib/xscreensaver/spheremonics"
+                                            runInTerm "-n demo_top" "top"
+                                            runInTerm "-n demo_htop" "htop"
+                                            runInTerm "-n glances" "glances"
+                                            spawn "/usr/lib/xscreensaver/cubicgrid"
+                                            spawn "/usr/lib/xscreensaver/surfaces"
             }
 
   ]

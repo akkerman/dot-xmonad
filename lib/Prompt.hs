@@ -1,4 +1,4 @@
-module Prompt ( promptCfg ) where
+module Prompt ( promptCfg, promptDangerCfg ) where
 
 import XMonad
 import XMonad.Prompt
@@ -28,4 +28,14 @@ promptCfg = def
       , sorter              = fuzzySort
       , alwaysHighlight     = True
       , maxComplRows        = Nothing        -- set to Just 5 for 5 rows
+      }
+
+promptWarnCfg = promptCfg 
+      { bgColor             = yellow
+      , fgColor             = fg
+      }
+
+promptDangerCfg = promptCfg 
+      { bgColor             = red
+      , fgColor             = fg
       }

@@ -20,7 +20,7 @@ main = do
 
     xmonad $ docks $ ShortCuts.modify $ Projects.modify $ Layout.modify $ def
         { logHook = StatusBar.myLogHook dbus 
-        , terminal = "st"
+        , terminal = "/usr/local/bin/st"
         , normalBorderColor = blue
         , focusedBorderColor = orange
         } 

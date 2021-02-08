@@ -1,4 +1,4 @@
-module Prompt ( promptCfg, promptDangerCfg ) where
+module Prompt ( promptCfg, promptWarnCfg, promptDangerCfg ) where
 
 import XMonad
 import XMonad.Prompt
@@ -32,7 +32,7 @@ promptCfg = def
 
 promptWarnCfg = promptCfg 
       { bgColor             = yellow
-      , fgColor             = fg
+      , fgColor             = bg
       }
 
 promptDangerCfg = promptCfg 

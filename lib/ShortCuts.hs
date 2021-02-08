@@ -28,9 +28,10 @@ import Colors
 
 import XMonad.Prompt.Ssh (sshPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
-import Prompt (promptCfg, promptDangerCfg)
+import Prompt (promptCfg, promptWarnCfg, promptDangerCfg)
 import Layout (myScratchpads)
 import Projects (findProject)
+import System.Exit
 
 
 myWorkspaces = map show ([1..9 :: Int])-- ++ ["0", "-", "="]
@@ -62,6 +63,7 @@ modify conf = conf
     , ("M-d <Return>"               , shellPrompt promptCfg)
     , ("M-p"                        , switchProjectPrompt promptCfg)
     , ("M-S-p"                      , shiftToProjectPrompt promptCfg)
+    , ("M-S-q"                      , confirmPrompt promptWarnCfg "Quit XMonad" $ io (exitWith ExitSuccess))
 
     -- programs
     , ("M-g"                        , spawn "chromium --profile-directory=Default")

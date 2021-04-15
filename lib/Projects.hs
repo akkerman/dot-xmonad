@@ -32,6 +32,13 @@ projects =
   , myProject "capo"                   "~/git/dsplatform/capo-frontend"
   , myProject "energieonderbrekingen"  "~/git/energieonderbrekingen/development-vm/energieonderbrekingen.nl"
 
+  , Project { projectName      = "notes"
+            , projectDirectory = "~/org/slip-box"
+            , projectStartHook = Just $ do spawn "chromium --app=http://localhost:5678"
+                                           spawn "emacs"
+                                           spawn "chromium --app=https://read.amazon.com/notebook"
+  }
+
   , Project { projectName      = "Haskell"
             , projectDirectory = "~/git/learn/haskell"
             , projectStartHook = Just $ do spawn "st -e tpwd"

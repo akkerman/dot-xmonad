@@ -76,6 +76,10 @@ myManageHook = composeAll
    , (className =? "Chromium" <&&> title =? "Open Files") --> floatMiddle
    , (className =? "Chromium" <&&> title =? "Save File") --> floatMiddle
 
+   , (className =? "Google-chrome" <&&> title =? "Open File") --> floatMiddle
+   , (className =? "Google-chrome" <&&> title =? "Open Files") --> floatMiddle
+   , (className =? "Google-chrome" <&&> title =? "Save File") --> floatMiddle
+
    , (className =? "Synergy" <&&> title =? "Synergy 1 Pro" )       --> floatMiddle
    , (className =? "Synergy" <&&> title =? "Server Configuration") --> floatMiddleSmall
 

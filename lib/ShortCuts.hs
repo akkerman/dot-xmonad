@@ -63,18 +63,18 @@ modify conf = conf
     , ("M-d <Return>"               , shellPrompt promptCfg)
     , ("M-p"                        , switchProjectPrompt promptCfg)
     , ("M-S-p"                      , shiftToProjectPrompt promptCfg)
-    , ("M-S-q"                      , confirmPrompt promptWarnCfg "Quit XMonad" $ io (exitWith ExitSuccess))
+    , ("M-S-q"                      , confirmPrompt promptDangerCfg "Quit XMonad" $ io (exitWith ExitSuccess))
 
     -- programs
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
     , ("M-S-f"                      , spawn "firefox")
     , ("M-S-g"                      , spawn "chromium --incognito")
-    , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=adnlfjpnmidfimlkaohpidplnoimahfh") -- youtube
-    , ("M-e"                        , spawn "emacs")
+    , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml") -- youtube
+    , ("M-S-m"                      , spawn "emacs")
 
     , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-<Backspace>"              , kill)
-    , ("M-S-<Backspace>"            , confirmPrompt promptDangerCfg "close all windows on this workspace" $ killAll)
+    , ("M-S-<Backspace>"            , confirmPrompt promptWarnCfg "close all windows on this workspace" $ killAll)
     , ("<Print>"                    , spawn "flameshot gui")
     , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
 

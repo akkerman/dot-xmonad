@@ -37,6 +37,7 @@ projects =
             , projectStartHook = Just $ do spawn "chromium --app=http://localhost:5678"
                                            spawn "emacs"
                                            spawn "chromium --app=https://read.amazon.com/notebook"
+                                           spawn "npx browser-sync start -s -f . --directory --host 0.0.0.0 --port 9000 --browser surf"
   }
 
   , Project { projectName      = "Haskell"

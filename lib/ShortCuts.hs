@@ -87,6 +87,7 @@ modify conf = conf
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
     , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
+    , ("M-x"                        , namedScratchpadAction myScratchpads "keepass")
 
     , ("M-="                        , switchProject $ findProject "xmonad")
 

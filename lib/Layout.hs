@@ -61,6 +61,7 @@ floatTopSmall = customFloating $ W.RationalRect (2/3) 0 (1/3) (1/3)
 myScratchpads :: [NamedScratchpad]
 myScratchpads = 
     [ NS "spotify" "spotify" (className =? "Spotify") floatMiddle
+    , NS "keepass" "keepassxc" (className =? "KeePassXC") floatMiddle
     , NS "arandr" "arandr" (className =? "Arandr") (customFloating $ W.RationalRect (1/8) (1/8) (1/3) (1/3))
     , NS "memento" "st -t memento -e nvim '+:cd ~/git/memento' -S Session.vim" (title =? "memento") nonFloating
     ]

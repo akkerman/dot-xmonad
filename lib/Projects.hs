@@ -15,8 +15,8 @@ myProject session dir = Project
    { projectName      = session
    , projectDirectory = dir
    , projectStartHook = Just $ do tmux session
-                                  nvimSession session
-                                  spawn "chromium --new-window"
+                                  -- nvimSession session
+                                  -- spawn "chromium --new-window"
    }
 
 projects :: [Project]
@@ -32,13 +32,20 @@ projects =
   , myProject "capo"                   "~/git/dsplatform/capo-frontend"
   , myProject "energieonderbrekingen"  "~/git/energieonderbrekingen/development-vm/energieonderbrekingen.nl"
 
+  -- , Project { projectName      = "notes"
+  --           , projectDirectory = "~/org/slip-box"
+  --           , projectStartHook = Just $ do spawn "chromium --app=http://localhost:5678"
+  --                                          spawn "emacs"
+  --                                          spawn "chromium --app=https://read.amazon.com/notebook"
+  --                                          spawn "npx browser-sync start -s -f . --directory --host 0.0.0.0 --port 9000 --browser surf"
+  --          }
+  
   , Project { projectName      = "notes"
             , projectDirectory = "~/org/slip-box"
-            , projectStartHook = Just $ do spawn "chromium --app=http://localhost:5678"
-                                           spawn "emacs"
-                                           spawn "chromium --app=https://read.amazon.com/notebook"
-                                           spawn "npx browser-sync start -s -f . --directory --host 0.0.0.0 --port 9000 --browser surf"
-  }
+            , projectStartHook = Just $ do spawn "emacs"
+                                           spawn "npx browser-sync start -s -f . --directory --host 0.0.0.0 --port 9900 --browser none"
+                                           spawn "chromium --new-window  'http://localhost:9900' 'http:/localhost:5678' 'https://read.amazon.com/notebook'"
+            }
 
   , Project { projectName      = "Haskell"
             , projectDirectory = "~/git/learn/haskell"

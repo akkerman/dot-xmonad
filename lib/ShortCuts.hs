@@ -90,6 +90,7 @@ modify conf = conf
     , ("M-x"                        , namedScratchpadAction myScratchpads "keepass")
 
     , ("M-="                        , switchProject $ findProject "xmonad")
+    , ("M-c"                        , switchProject $ findProject "capo")
 
     -- , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
     -- , ("M-S--"                      , windows $ W.shift "-") -- workspace 11

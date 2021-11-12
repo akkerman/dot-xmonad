@@ -2,9 +2,10 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export GTK_THEME=Adwaita:dark
 
 xmonad --recompile
+xsetroot -solid "#1d2021"
 
 /home/akkerman/.screenlayout/default          # xrandr
-/home/akkerman/.fehbg                         # background
+# /home/akkerman/.fehbg                         # background
 # /home/akkerman/.config/compton/launch.sh &  # transparency / fade
 /home/akkerman/.config/polybar/launch.sh &    # dock / statusbar
 
@@ -13,6 +14,8 @@ xmonad --recompile
 /usr/sbin/dropbox start & # file sharing
 /usr/sbin/flameshot &     # screen shots
 /usr/bin/synergy &        # share mouse & keyboard
+/usr/bin/clipit &         # clipboard history
+/usr/bin/emacs --daemon & 
 
 # utils
 /usr/sbin/dunst &

@@ -42,7 +42,7 @@ projects =
   
   , Project { projectName      = "notes"
             , projectDirectory = "~/org/slip-box"
-            , projectStartHook = Just $ do spawn "emacs"
+            , projectStartHook = Just $ do spawn "emacsclient -c"
                                            spawn "npx browser-sync start -s -f . --directory --host 0.0.0.0 --port 9900 --browser none"
                                            spawn "chromium --new-window  'http://localhost:9900' 'http:/localhost:5678' 'https://read.amazon.com/notebook'"
             }

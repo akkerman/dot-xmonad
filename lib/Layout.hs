@@ -63,7 +63,7 @@ myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
         tab = nameClick "T" $ tabbedBottom shrinkText myTabConfig
         nmaster = 1
         delta = 3/100
-        gaps = spacingRaw True (Border 1 0 0 0) False (Border 5 5 5 5) True
+        gaps = spacingRaw True (Border 0 0 0 0) False (Border 3 3 3 3) True
 
 floatMiddle :: ManageHook
 floatMiddle = customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)

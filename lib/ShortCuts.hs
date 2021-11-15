@@ -47,12 +47,12 @@ modify conf = conf
 
   `additionalKeysP` 
     (
-    [ ("M4-M1-l"                    , spawn "slock") -- lock screen
+    [ ("M4-M1-l"                    , spawn "playerctl stop; slock") -- lock screen
 
     -- dmenu
     , ("M-d c"                      , spawn ("dmenu_run" ++ dmenu_settings))
     , ("M-d d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
-    , ("M-d r"                      , spawn ("$HOME/.config/xmonad/dmenu_restart.sh" ++ dmenu_settings))
+    , ("M-d r"                      , spawn ("$HOME/.xmonad/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
     , ("M-d p"                      , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-d m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))

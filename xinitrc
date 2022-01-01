@@ -2,7 +2,9 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export GTK_THEME=Adwaita:dark
 
 xmonad --recompile
-xsetroot -solid "#1d2021"
+# xsetroot -solid "#1d2021" # hard contrast
+xsetroot -solid "#282828" # medium contrast
+# xsetroot -solid "#32302f" # soft contrast
 
 /home/akkerman/.screenlayout/default          # xrandr
 # /home/akkerman/.fehbg                         # background
@@ -26,3 +28,5 @@ xsetroot -solid "#1d2021"
 # xmodmap -e 'add Control = Control_L'
 
 exec xmonad
+
+# vi: ft=sh:

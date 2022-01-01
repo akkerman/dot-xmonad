@@ -16,7 +16,12 @@ module Colors
 , bg3
 ) where
 
-bg      = "#282828"
+
+bg_hard = "#1d2021"
+bg_medium = "#282828"
+bg_soft = "#32302f"
+
+bg      = bg_medium
 red     = "#cc241d"
 green   = "#98971a"
 yellow  = "#d79921"

@@ -8,7 +8,6 @@ import XMonad.Hooks.ManageDocks (ToggleStruts(..), Direction2D(U))
 
 import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote
-import XMonad.Actions.DynamicProjects
 import XMonad.Actions.WithAll (killAll)
 
 import XMonad.Layout.MultiToggle (Toggle(..), (??))
@@ -30,11 +29,10 @@ import XMonad.Prompt.Ssh (sshPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import Prompt (promptCfg, promptWarnCfg, promptDangerCfg)
 import Layout (myScratchpads)
-import Projects (findProject)
 import System.Exit
 
 
-myWorkspaces = map show ([1..9 :: Int])-- ++ ["0", "-", "="]
+myWorkspaces = map show ([1..9 :: Int]) ++ ["0", "-", "="]
 
 
 dmenu_settings = " -nb '" ++ bg2 ++ "' -nf '" ++ fg ++ "' -sb '" ++ orange ++ "' -sf '" ++ bg1 ++ "' -fn terminus-12:normal -h 26"
@@ -54,15 +52,13 @@ modify conf = conf
     , ("M-d d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-d r"                      , spawn ("$HOME/.xmonad/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
-    , ("M-d p"                      , spawn ("$HOME/.config/xmonad/dmenu_pdf.sh" ++ dmenu_settings))
+    , ("M-d p"                      , spawn ("$HOME/.xmonad/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-d m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
     , ("M-d w"                      , spawn ("$HOME/.xmonad/change-wallpaper.sh " ++ dmenu_settings))
 
     -- prompt
     , ("M-d s"                      , sshPrompt promptCfg)
     , ("M-d <Return>"               , shellPrompt promptCfg)
-    , ("M-p"                        , switchProjectPrompt promptCfg)
-    , ("M-S-p"                      , shiftToProjectPrompt promptCfg)
     , ("M-S-q"                      , confirmPrompt promptDangerCfg "Quit XMonad" $ io (exitWith ExitSuccess))
 
     -- programs
@@ -89,12 +85,10 @@ modify conf = conf
     , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
     , ("M-x"                        , namedScratchpadAction myScratchpads "keepass")
 
-    , ("M-="                        , switchProject $ findProject "xmonad")
-    , ("M-c"                        , switchProject $ findProject "capo")
 
-    -- , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
-    -- , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
-    -- , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
+    , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
+    , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
+    , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
 
 
     -- media

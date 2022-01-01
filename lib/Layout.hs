@@ -42,12 +42,12 @@ nameClick name = named $ renameLayout name
 myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
     three ||| tiled
     where 
-        three = nameClick "|||" $ gaps $ ThreeCol nmaster delta (5/12)
-        tiled = nameClick "[]=" $ gaps $ Tall nmaster delta ratio
+        three = nameClick "|||" $ ThreeCol nmaster delta (5/12)
+        tiled = nameClick "[]=" $ Tall nmaster delta ratio
         nmaster = 1
         ratio = 2/3
         delta = 3/100
-        gaps = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
+        gaps = spacingRaw True (Border 1 0 0 0) False (Border 5 5 5 5) True
 
 floatMiddle :: ManageHook
 floatMiddle = customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)

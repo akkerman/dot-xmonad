@@ -41,11 +41,11 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
 
 myLogHook dbus = 
     dynamicLogWithPP $ def { ppOutput  = dbusOutput dbus
-    , ppCurrent = format fg bg1 orange
-    , ppVisible = format fg bg1 blue
+    , ppCurrent = format fg bg2 fg
+    , ppVisible = format fg bg2 gray
     , ppUrgent  = format red fg red
-    , ppHidden  = format bg3 bg1 bg1
-    -- , ppHiddenNoWindows = format bg3 bg1 bg1
+    , ppHidden  = format bg3 bg2 bg1
+    -- , ppHiddenNoWindows = format bg2 bg1 bg1
     , ppWsSep   = " "
     , ppSep     = "   "
     , ppTitle   = shorten 50

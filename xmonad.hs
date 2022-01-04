@@ -2,8 +2,7 @@ import XMonad
 
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
 
-import qualified DBus as D
-import qualified DBus.Client as D
+import qualified XMonad.DBus as D
 
 -- Custom modules
 import ShortCuts  (modify)
@@ -12,10 +11,9 @@ import StatusBar (myLogHook)
 import Layout (modify)
 
 main = do
-    dbus <- D.connectSession
+    dbus <- D.connect
 
-    D.requestName dbus (D.busName_ "org.xmonad.Log")
-        [D.nameAllowReplacement, D.nameReplaceExisting, D.nameDoNotQueue]
+    D.requestAccess dbus
 
     xmonad $ docks $ ShortCuts.modify $ Layout.modify $ def
         { logHook = StatusBar.myLogHook dbus 

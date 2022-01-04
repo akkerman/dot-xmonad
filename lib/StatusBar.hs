@@ -4,8 +4,8 @@ module StatusBar (
 
 import XMonad
 import XMonad.Hooks.DynamicLog (ppCurrent, ppHidden, ppHiddenNoWindows, ppOutput, ppSep, ppTitle, ppUrgent, ppVisible, ppWsSep, shorten, wrap, dynamicLogWithPP)
-import qualified DBus as D
-import qualified DBus.Client as D
+import qualified XMonad.DBus as D
+import qualified DBus.Client as DC
 import qualified Codec.Binary.UTF8.String as UTF8
 
 import Colors
@@ -39,8 +39,9 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
         close   = "%{u#00000000}%{B- F- A}"
         padding = "  "
 
+myLogHook :: DC.Client -> X()
 myLogHook dbus = 
-    dynamicLogWithPP $ def { ppOutput  = dbusOutput dbus
+    dynamicLogWithPP $ def { ppOutput = D.send dbus
     , ppCurrent = format fg bg2 fg
     , ppVisible = format fg bg2 gray
     , ppUrgent  = format red fg red
@@ -50,15 +51,3 @@ myLogHook dbus =
     , ppSep     = "   "
     , ppTitle   = shorten 50
     }
-  
-
--- Emit a DBus signal on log updates
-dbusOutput dbus str = do
-    let signal = (D.signal objectPath interfaceName memberName) {
-            D.signalBody = [D.toVariant $ UTF8.decodeString str]
-        }
-    D.emit dbus signal
-  where
-    objectPath = D.objectPath_ "/org/xmonad/Log"
-    interfaceName = D.interfaceName_ "org.xmonad.Log"
-    memberName = D.memberName_ "Update"

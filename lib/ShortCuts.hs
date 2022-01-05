@@ -37,6 +37,8 @@ myWorkspaces = map show ([1..9 :: Int]) ++ ["0", "-", "="]
 
 dmenu_settings = " -nb '" ++ bg2 ++ "' -nf '" ++ fg ++ "' -sb '" ++ orange ++ "' -sf '" ++ bg1 ++ "' -fn terminus-12:normal -h 26"
 
+xmonadHome = "$HOME/.config/xmonad"
+
 modify :: XConfig l -> XConfig l
 modify conf = conf 
   { modMask = mod4Mask
@@ -50,11 +52,12 @@ modify conf = conf
     -- dmenu
     , ("M-d c"                      , spawn ("dmenu_run" ++ dmenu_settings))
     , ("M-d d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
-    , ("M-d r"                      , spawn ("$HOME/.xmonad/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
-    , ("M-d p"                      , spawn ("$HOME/.xmonad/dmenu_pdf.sh" ++ dmenu_settings))
-    , ("M-d m"                      , spawn ("$HOME/.xmonad/chscreen.sh " ++ dmenu_settings))
-    , ("M-d w"                      , spawn ("$HOME/.xmonad/change-wallpaper.sh " ++ dmenu_settings))
+    , ("M-d r"                      , spawn (xmonadHome ++ "/dmenu_restart.sh" ++ dmenu_settings))
+    , ("M-d p"                      , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
+    , ("M-p"                        , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
+    , ("M-d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))
+    , ("M-d w"                      , spawn (xmonadHome ++ "/change-wallpaper.sh " ++ dmenu_settings))
 
     -- prompt
     , ("M-d s"                      , sshPrompt promptCfg)

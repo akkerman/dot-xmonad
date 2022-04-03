@@ -6,10 +6,10 @@ xmonad --recompile
 xsetroot -solid "#282828" # medium contrast
 # xsetroot -solid "#32302f" # soft contrast
 
-/home/akkerman/.screenlayout/default          # xrandr
-# /home/akkerman/.fehbg                         # background
-# /home/akkerman/.config/compton/launch.sh &  # transparency / fade
-/home/akkerman/.config/polybar/launch.sh &    # dock / statusbar
+$HOME/.screenlayout/default          # xrandr
+# $HOME/.fehbg                         # background
+# $HOME/.config/compton/launch.sh &  # transparency / fade
+$HOME/.config/polybar/launch.sh &    # dock / statusbar
 
 # tray programs
 /usr/bin/pasystray &      # sound
@@ -17,7 +17,7 @@ xsetroot -solid "#282828" # medium contrast
 /usr/sbin/flameshot &     # screen shots
 /usr/bin/synergy &        # share mouse & keyboard
 /usr/bin/clipit &         # clipboard history
-/usr/bin/emacs --daemon & 
+$HOME/.config/xmonad/launch-emacs.sh
 
 # utils
 /usr/sbin/dunst &

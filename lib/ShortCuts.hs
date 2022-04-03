@@ -59,6 +59,8 @@ modify conf = conf
     , ("M-d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))
     , ("M-d w"                      , spawn (xmonadHome ++ "/change-wallpaper.sh " ++ dmenu_settings))
 
+    , ("M-r"                        , spawn ("$HOME/Pictures/wallpapers/one_random_background.sh"))
+
     -- prompt
     , ("M-d s"                      , sshPrompt promptCfg)
     , ("M-d <Return>"               , shellPrompt promptCfg)

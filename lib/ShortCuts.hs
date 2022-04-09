@@ -68,6 +68,7 @@ modify conf = conf
 
     -- programs
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
+    , ("M-q"                        , spawn "qutebrowser")
     , ("M-S-f"                      , spawn "firefox")
     , ("M-S-g"                      , spawn "chromium --incognito")
     , ("M-y"                        , spawn "chromium --profile-directory=Default --app-id=agimnkijcaahngcdmfeangaknmldooml") -- youtube

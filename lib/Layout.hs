@@ -90,6 +90,7 @@ myManageHook = composeAll
    , (className =? "Pavucontrol") --> floatTopSmall
    , (className =? "Pavumeter") --> floatTopSmall
    , (className =? "flameshot") --> floatMiddleSmall
+   , (className =? "Gimp" <&&> title =? "Quit GIMP") --> defaultFloating
 
 
    , manageDocks

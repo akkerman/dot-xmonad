@@ -84,19 +84,21 @@ myManageHook = composeAll
    , (className =? "Synergy" <&&> title =? "Synergy 1 Pro" )       --> floatMiddle
    , (className =? "Synergy" <&&> title =? "Server Configuration") --> floatMiddleSmall
 
-   , (className =? "GoldenDict" ) --> floatMiddle
+   , className =? "GoldenDict" --> floatMiddle
 
-   , (className =? "Spotify" ) --> floatMiddle
-   , (className =? "Pavucontrol") --> floatTopSmall
-   , (className =? "Pavumeter") --> floatTopSmall
-   , (className =? "flameshot") --> floatMiddleSmall
+   , className =? "Spotify" --> floatMiddle
+   , className =? "Pavucontrol" --> floatTopSmall
+   , className =? "Pavumeter" --> floatTopSmall
+   , className =? "flameshot" --> floatMiddleSmall
    , (className =? "Gimp" <&&> title =? "Quit GIMP") --> defaultFloating
+   , role =? "GtkFileChooserDialog" --> defaultFloating
 
 
    , manageDocks
    ]
    where 
      viewShift = doF . liftM2 (.) W.greedyView W.shift
+     role = stringProperty "WM_WINDOW_ROLE"
 
 
 -- modify :: XConfig l -> XConfig ...

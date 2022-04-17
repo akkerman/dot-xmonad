@@ -1,5 +1,5 @@
 #!/bin/sh
-choice=$(find "$HOME/Dropbox/Apps" "$HOME/Dropbox/Library Bought" "$HOME/Dropbox/Library" "$HOME/Documents" "$HOME/git/dsplatform/analytics-wiki" "$HOME/org/slip-box" -name "*.pdf"  -o -name "*.epub" -o -name "*.mobi" -o -name "*.md" -o -name "*.org" | dmenu -l 20 -i "$@")
+choice=$(find "$HOME/Dropbox/Apps" "$HOME/Dropbox/Library Bought" "$HOME/Dropbox/Library" "$HOME/Documents" "$HOME/git/dsplatform/analytics-wiki" "$HOME/org/slip-box" "$HOME/git/papers-we-love" -name "*.pdf"  -o -name "*.epub" -o -name "*.mobi" -o -name "*.md" -o -name "*.org" | dmenu -l 20 -i "$@")
 
 msg="opened nothing"
 

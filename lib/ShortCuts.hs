@@ -81,10 +81,13 @@ modify conf = conf
     , ("<Print>"                    , spawn "flameshot gui")
     , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
 
+    -- emacs 
+    , ("M-n t"                      , spawn "emacsclient -c -a '' --eval '(org-roam-dailies-capture-today)'")
+
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)
-    , ("M-b"                        , sendMessage $ ToggleStrut U)    --- overlap window over polybar
-    , ("M-n"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
+    -- , ("M-b"                        , sendMessage $ ToggleStrut U)    --- overlap window over polybar
+    , ("M-b"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
     , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")

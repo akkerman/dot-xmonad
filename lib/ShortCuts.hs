@@ -48,6 +48,7 @@ modify conf = conf
   `additionalKeysP` 
     (
     [ ("M4-M1-l"                    , spawn "playerctl stop; slock") -- lock screen
+    , ("M4-M1-S-l"                  , spawn "playerctl stop; slock & sudo systemctl suspend") -- lock screen and suspend
 
     -- dmenu
     , ("M-d c"                      , spawn ("dmenu_run" ++ dmenu_settings))
@@ -81,7 +82,7 @@ modify conf = conf
     , ("<Print>"                    , spawn "flameshot gui")
     , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
 
-    -- emacs 
+    -- emacs note taking 
     , ("M-n t"                      , spawn "emacsclient -c -a '' --eval '(org-roam-dailies-capture-today)'")
 
     -- modify screen/layout

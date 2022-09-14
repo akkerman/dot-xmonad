@@ -53,7 +53,8 @@ modify conf = conf
     -- dmenu
     , ("M-d c"                      , spawn ("dmenu_run" ++ dmenu_settings))
     , ("M-d d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
-    , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh" ++ dmenu_settings))
+    , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh start" ++ dmenu_settings))
+    , ("M-d S-t"                    , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh stop" ++ dmenu_settings))
     , ("M-d r"                      , spawn (xmonadHome ++ "/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-d p"                      , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-p"                        , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
@@ -100,6 +101,7 @@ modify conf = conf
     , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10
     , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
     , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
+
 
 
     -- media

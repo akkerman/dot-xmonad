@@ -95,6 +95,7 @@ modify conf = conf
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
     , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
     , ("M-x"                        , namedScratchpadAction myScratchpads "keepass")
+    , ("M-z"                        , spawn "pcmanfm")
 
 
     , ("M-S-0"                      , windows $ W.shift "0") -- workspace 10

@@ -1,3 +1,4 @@
+#!/bin/sh 
 export _JAVA_AWT_WM_NONREPARENTING=1
 export GTK_THEME=Adwaita:dark
 
@@ -23,9 +24,9 @@ $HOME/.config/xmonad/launch-emacs.sh
 /usr/sbin/dunst &
 /usr/sbin/unclutter -idle 2 --start-hidden &
 
-# xmodmap -e 'keycode 66 = Control_L'
-# xmodmap -e 'clear Lock'
-# xmodmap -e 'add Control = Control_L'
+xmodmap -e 'keycode 66 = Control_L'
+xmodmap -e 'clear Lock'
+xmodmap -e 'add Control = Control_L'
 
 exec xmonad
 

@@ -8,6 +8,8 @@ import qualified XMonad.DBus as D
 import qualified DBus.Client as DC
 import qualified Codec.Binary.UTF8.String as UTF8
 
+import XMonad.Actions.UpdatePointer
+
 import Colors
 
 -- fontawesome icons
@@ -41,7 +43,7 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
 
 myLogHook :: DC.Client -> X()
 myLogHook dbus = 
-    dynamicLogWithPP $ def { ppOutput = D.send dbus
+    (dynamicLogWithPP $ def { ppOutput = D.send dbus
     , ppCurrent = format fg bg2 fg
     , ppVisible = format fg bg2 gray
     , ppUrgent  = format red fg red
@@ -50,4 +52,4 @@ myLogHook dbus =
     , ppWsSep   = " "
     , ppSep     = "   "
     , ppTitle   = shorten 50
-    }
+    } ) >> updatePointer (0.5, 0.5) (0, 0)

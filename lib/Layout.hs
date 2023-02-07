@@ -40,12 +40,12 @@ nameClick :: String -> l a -> ModifiedLayout Rename l a
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
-    three ||| tiled
+    tiled ||| three ||| mthree
     where 
-        three = nameClick "|||" $ ThreeCol nmaster delta (5/12)
-        tiled = nameClick "[]=" $ Tall nmaster delta ratio
+        three = nameClick "|⋮⋮" $ ThreeCol nmaster delta (5/12)
+        mthree = nameClick "⋮|⋮" $ ThreeColMid nmaster delta (1/2)
+        tiled = nameClick "[]⋮" $ Tall nmaster delta (2/3)
         nmaster = 1
-        ratio = 2/3
         delta = 3/100
         gaps = spacingRaw True (Border 1 0 0 0) False (Border 5 5 5 5) True
 

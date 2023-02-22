@@ -12,6 +12,8 @@ import XMonad.Layout.Named (named)
 import XMonad.Layout.Renamed (Rename)
 import XMonad.Layout.Spacing (Border(..), spacingRaw)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
+import XMonad.Layout.Tabbed
+import XMonad.Util.Themes
 
 import XMonad.Util.NamedScratchpad(namedScratchpadManageHook, defaultFloating, nonFloating, customFloating, namedScratchpadAction, NamedScratchpad(NS))
 import XMonad.Util.Run(spawnPipe)
@@ -40,11 +42,12 @@ nameClick :: String -> l a -> ModifiedLayout Rename l a
 nameClick name = named $ renameLayout name
 
 myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
-    tiled ||| three ||| mthree
+    tiled ||| three ||| mthree ||| tab
     where 
         three = nameClick "|⋮⋮" $ ThreeCol nmaster delta (5/12)
         mthree = nameClick "⋮|⋮" $ ThreeColMid nmaster delta (1/2)
         tiled = nameClick "[]⋮" $ Tall nmaster delta (2/3)
+        tab = nameClick "T" $ simpleTabbedBottom
         nmaster = 1
         delta = 3/100
         gaps = spacingRaw True (Border 1 0 0 0) False (Border 5 5 5 5) True

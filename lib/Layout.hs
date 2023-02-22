@@ -1,6 +1,6 @@
 module Layout ( Layout.modify, Layout.myScratchpads ) where
 
-import XMonad
+import XMonad 
 
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
 import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap)
@@ -13,7 +13,6 @@ import XMonad.Layout.Renamed (Rename)
 import XMonad.Layout.Spacing (Border(..), spacingRaw)
 import XMonad.Layout.ThreeColumns (ThreeCol(..))
 import XMonad.Layout.Tabbed
-import XMonad.Util.Themes
 
 import XMonad.Util.NamedScratchpad(namedScratchpadManageHook, defaultFloating, nonFloating, customFloating, namedScratchpadAction, NamedScratchpad(NS))
 import XMonad.Util.Run(spawnPipe)
@@ -41,13 +40,27 @@ renameLayout name = click ++ bg ++ ln ++ padding ++ name ++ padding ++ close
 nameClick :: String -> l a -> ModifiedLayout Rename l a
 nameClick name = named $ renameLayout name
 
+
+myTabConfig = def { activeColor = bg
+                  , activeBorderColor = bg
+                  , activeTextColor = yellow
+
+                  , inactiveColor = bg
+                  , inactiveBorderColor = bg
+                  , inactiveTextColor = gray
+
+                  , urgentColor = bg
+                  , urgentBorderColor = bg
+                  , urgentTextColor = red
+                  }
+
 myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
     tiled ||| three ||| mthree ||| tab
     where 
         three = nameClick "|⋮⋮" $ ThreeCol nmaster delta (5/12)
         mthree = nameClick "⋮|⋮" $ ThreeColMid nmaster delta (1/2)
         tiled = nameClick "[]⋮" $ Tall nmaster delta (2/3)
-        tab = nameClick "T" $ simpleTabbedBottom
+        tab = nameClick "T" $ tabbedBottom shrinkText myTabConfig
         nmaster = 1
         delta = 3/100
         gaps = spacingRaw True (Border 1 0 0 0) False (Border 5 5 5 5) True

@@ -103,6 +103,10 @@ modify conf = conf
     , ("M-S--"                      , windows $ W.shift "-") -- workspace 11
     , ("M-S-="                      , windows $ W.shift "=") -- workspace 12
 
+    , ("C-<Space>"                  , spawn "dunstctl close")
+    , ("C-S-<Space>"                , spawn "dunstctl close-all")
+    , ("C-S-."                      , spawn "dunstctl context")
+
 
 
     -- media

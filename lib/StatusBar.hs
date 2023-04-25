@@ -22,7 +22,8 @@ icon "6" = "\xf085" -- cogs
 icon "7" = "\xf075" -- comment
 icon "8" = "\xf17c" -- linux
 icon "9" = "\xf02d" -- book
-icon "0" = "\xf1de" -- sliders
+-- icon "0" = "\xf1de" -- sliders
+icon "0" = "\xf073" -- calendar
 icon "-" = "\xf26c" -- television
 icon "=" = "\xf0f4" -- coffee
 icon n = n

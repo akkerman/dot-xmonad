@@ -23,6 +23,7 @@ $HOME/.config/xmonad/launch-emacs.sh
 # utils
 /usr/sbin/dunst &
 /usr/sbin/unclutter -idle 2 --start-hidden &
+tmuxinator org
 
 xmodmap -e 'keycode 66 = Control_L'
 xmodmap -e 'clear Lock'

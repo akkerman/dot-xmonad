@@ -62,6 +62,7 @@ modify conf = conf
     , ("M-d w"                      , spawn (xmonadHome ++ "/change-wallpaper.sh " ++ dmenu_settings))
     , ("M-d i"                      , spawn (xmonadHome ++ "/insert-bookmark.sh " ++ dmenu_settings))
     , ("M-d b"                      , spawn (xmonadHome ++ "/create-bookmark.sh " ++ dmenu_settings))
+    , ("M-S-o"                      , spawn (xmonadHome ++ "/launch-bookmark.sh " ++ dmenu_settings))
 
     , ("M-r"                        , spawn ("$HOME/Pictures/wallpapers/one_random_background.sh"))
 
@@ -73,6 +74,7 @@ modify conf = conf
     -- programs
     , ("M-g"                        , spawn "chromium --profile-directory=Default")
     , ("M-o"                        , spawn "qutebrowser")
+
     , ("M-S-f"                      , spawn "firefox")
     , ("M-S-g"                      , spawn "chromium --incognito")
     , ("M-S-m"                      , spawn "emacsclient -c")

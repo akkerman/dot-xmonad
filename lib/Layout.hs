@@ -107,6 +107,7 @@ myManageHook = composeAll
    , className =? "Pavucontrol" --> floatTopSmall
    , className =? "Pavumeter" --> floatTopSmall
    , className =? "flameshot" --> floatMiddleSmall
+   , className =? "Gmrun" --> doFloat
    , (className =? "Gimp" <&&> title =? "Quit GIMP") --> defaultFloating
    , role =? "GtkFileChooserDialog" --> floatMiddle
 

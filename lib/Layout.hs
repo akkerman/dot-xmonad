@@ -68,6 +68,9 @@ myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
 floatMiddle :: ManageHook
 floatMiddle = customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3)
 
+floatMiddleLarge :: ManageHook
+floatMiddleLarge = customFloating $ W.RationalRect (1/20) (1/20) (9/10) (9/10)
+
 floatMiddleSmall :: ManageHook
 floatMiddleSmall = customFloating $ W.RationalRect (1/3) (1/3) (1/3) (1/3)
 
@@ -76,7 +79,7 @@ floatTopSmall = customFloating $ W.RationalRect (2/3) 0 (1/3) (1/3)
 
 myScratchpads :: [NamedScratchpad]
 myScratchpads = 
-    [ NS "spotify" "spotify" (className =? "Spotify") floatMiddle
+    [ NS "spotify" "spotify" (className =? "Spotify") floatMiddleLarge
     , NS "keepass" "keepassxc" (className =? "KeePassXC") floatMiddle
     , NS "arandr" "arandr" (className =? "Arandr") (customFloating $ W.RationalRect (1/8) (1/8) (1/3) (1/3))
     , NS "memento" "st -t memento -e nvim '+:cd ~/git/memento' -S Session.vim" (title =? "memento") nonFloating

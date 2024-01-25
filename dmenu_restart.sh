@@ -1,5 +1,6 @@
 #!/bin/sh
 
+
 choice=$(echo -e "restart status bar\nenable transparancy\ndisable transparancy\nreload wallpaper\nrandom wallpaper\nremove current wallpaper\nrestart emacs daemon" | dmenu -i "$@")
 
 [ "$choice" = "restart status bar" ] && $HOME/.config/polybar/launch.sh

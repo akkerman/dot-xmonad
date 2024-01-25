@@ -14,10 +14,10 @@ if [ -n "$choice" ]; then
       exec zathura "$choice"
       ;;
     "mobi")
-      exec ebook-viewer "$choice"
+      exec FBReader "$choice"
       ;;
     "epub")
-      exec ebook-viewer "$choice"
+      exec FBReader "$choice"
       ;;
     "md")
       exec st -e nvim "$choice" +MarkdownPreview

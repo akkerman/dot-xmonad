@@ -2,6 +2,7 @@ import XMonad
 
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
 import XMonad.Hooks.WindowSwallowing
+import XMonad.Hooks.EwmhDesktops
 
 import qualified XMonad.DBus as D
 
@@ -16,7 +17,7 @@ main = do
 
     D.requestAccess dbus
 
-    xmonad $ docks $ ShortCuts.modify $ Layout.modify $ def
+    xmonad $ ewmh $ docks $ ShortCuts.modify $ Layout.modify $ def
         { logHook = StatusBar.myLogHook dbus
         , handleEventHook = swallowEventHook (className =? "st-256color") (return True)
         , terminal = "/usr/local/bin/st"

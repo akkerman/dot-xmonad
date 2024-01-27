@@ -3,8 +3,8 @@
 
 ID=0
 notify () {
-  echo "[COPY-HERE] notify:" $1 $2
-  ID=$(notify-send --icon=emacs -u low -t 5000 -p -r $ID -a 'launch-emacs' "$1" "$2")
+  echo "[COPY-HERE] notify:" "$1" "$2"
+  ID=$(notify-send --icon=emacs -u low -t 5000 -p -r "$ID" -a 'launch-emacs' "$1" "$2")
 }
 
 # Gracefully shutdown emacs if it is running

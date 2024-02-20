@@ -57,9 +57,9 @@ myTabConfig = def { activeColor = bg
 myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
     tiled ||| three ||| mthree ||| tab
     where 
-        three = nameClick "|⋮⋮" $ ThreeCol nmaster delta (5/12)
-        mthree = nameClick "⋮|⋮" $ ThreeColMid nmaster delta (1/2)
-        tiled = nameClick "[]⋮" $ Tall nmaster delta (2/3)
+        three = nameClick "[]··" $ ThreeCol nmaster delta (5/12)
+        mthree = nameClick "·[]·" $ ThreeColMid nmaster delta (1/2)
+        tiled = nameClick "[]·" $ Tall nmaster delta (2/3)
         tab = nameClick "T" $ tabbedBottom shrinkText myTabConfig
         nmaster = 1
         delta = 3/100

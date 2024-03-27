@@ -3,7 +3,7 @@
 
 ID=0
 notify () {
-  echo "[COPY-HERE] notify:" "$1" "$2"
+  echo "[LAUNCH EMACS] notify:" "$1" "$2"
   ID=$(notify-send --icon=emacs -u low -t 5000 -p -r "$ID" -a 'launch-emacs' "$1" "$2")
 }
 
@@ -17,6 +17,7 @@ while pgrep -u $UID -x emacs >/dev/null; do sleep 1; done
 # Startup 
 notify "Starting Emacs"
 /usr/bin/emacs --daemon &
+
 
 while ! emacsclient -e '(format  "ping")'; do
   echo "waiting..."

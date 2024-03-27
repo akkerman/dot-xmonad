@@ -78,7 +78,6 @@ modify conf = conf
 
     , ("M-S-f"                      , spawn "firefox")
     , ("M-S-g"                      , spawn "chromium --incognito")
-    , ("M-S-m"                      , spawn "emacsclient -c")
 
     , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-<Backspace>"              , kill)
@@ -86,8 +85,10 @@ modify conf = conf
     , ("<Print>"                    , spawn "flameshot gui")
     , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
 
-    -- emacs note taking 
-    , ("M-n t"                      , spawn "emacsclient -c -a '' --eval '(org-roam-dailies-capture-today)'")
+    -- emacs add todo etc.
+    , ("M-n t"                      , spawn "emacsclient -c -a '' --eval '(org-capture)'")
+    , ("M-S-m"                      , spawn "emacsclient -c")
+    , ("M-m"                      , spawn "emacsclient -c")
 
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)
@@ -97,7 +98,7 @@ modify conf = conf
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
-    , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
+    -- , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
     , ("M-x"                        , namedScratchpadAction myScratchpads "keepass")
     , ("M-z"                        , spawn "pcmanfm")
 

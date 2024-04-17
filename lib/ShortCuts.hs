@@ -65,7 +65,7 @@ modify conf = conf
     , ("M-S-o"                      , spawn (xmonadHome ++ "/launch-bookmark.sh " ++ dmenu_settings))
     , ("M1-<Tab>"                   , spawn ("/usr/bin/rofi -show window"))
 
-    , ("M-r"                        , spawn ("$HOME/Pictures/wallpapers/one_random_background.sh"))
+    -- , ("M-r"                        , spawn ("$HOME/Pictures/wallpapers/one_random_background.sh"))
 
     -- prompt
     , ("M-d s"                      , sshPrompt promptCfg)

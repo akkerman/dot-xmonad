@@ -48,7 +48,7 @@ modify conf = conf
   `additionalKeysP` 
     (
     [ ("M4-M1-l"                    , spawn "playerctl stop; slock") -- lock screen
-    , ("M4-M1-S-l"                  , spawn "playerctl stop; slock & sudo systemctl suspend") -- lock screen and suspend
+    , ("M4-M1-S-l"                  , spawn "playerctl stop; slock systemctl suspend -i") -- lock screen and suspend
 
     -- dmenu
     , ("M-d c"                      , spawn ("dmenu_run" ++ dmenu_settings))
@@ -88,7 +88,7 @@ modify conf = conf
     -- emacs add todo etc.
     , ("M-n t"                      , spawn "emacsclient -c -a '' --eval '(org-capture)'")
     , ("M-S-m"                      , spawn "emacsclient -c")
-    , ("M-m"                      , spawn "emacsclient -c")
+    , ("M-m"                        , spawn "emacsclient -c")
 
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)

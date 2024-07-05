@@ -1,6 +1,9 @@
 #!/bin/sh 
 export _JAVA_AWT_WM_NONREPARENTING=1
-export GTK_THEME=Adwaita:dark
+# export GTK_THEME=Adwaita:dark
+
+# install from aur: gruvbox-material-gtk-theme-git gruvbox-material-icon-theme-git
+export GTK_THEME=Gruvbox-Material-Dark
 
 xmonad --recompile
 # xsetroot -solid "#1d2021" # hard contrast

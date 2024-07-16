@@ -61,8 +61,9 @@ modify conf = conf
     , ("M-p"                        , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))
     , ("M-d w"                      , spawn (xmonadHome ++ "/change-wallpaper.sh " ++ dmenu_settings))
-    , ("M-d i"                      , spawn (xmonadHome ++ "/insert-bookmark.sh " ++ dmenu_settings))
-    , ("M-d b"                      , spawn (xmonadHome ++ "/create-bookmark.sh " ++ dmenu_settings))
+    , ("M-b i"                      , spawn (xmonadHome ++ "/insert-bookmark.sh " ++ dmenu_settings))
+    , ("M-b b"                      , spawn (xmonadHome ++ "/create-bookmark.sh " ++ dmenu_settings))
+    , ("M-b o"                      , spawn (xmonadHome ++ "/launch-bookmark.sh " ++ dmenu_settings))
     , ("M-S-o"                      , spawn (xmonadHome ++ "/launch-bookmark.sh " ++ dmenu_settings))
     , ("M1-<Tab>"                   , spawn ("/usr/bin/rofi -show window"))
 
@@ -94,7 +95,7 @@ modify conf = conf
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)
     -- , ("M-b"                        , sendMessage $ ToggleStrut U)    --- overlap window over polybar
-    , ("M-b"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
+    -- , ("M-b"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
     , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")

@@ -75,11 +75,11 @@ modify conf = conf
     , ("M-S-q"                      , confirmPrompt promptDangerCfg "Quit XMonad" $ io (exitWith ExitSuccess))
 
     -- programs
-    , ("M-g"                        , spawn "chromium --profile-directory=Default")
+    , ("M-g"                        , spawn "google-chrome-stable --profile-directory=Default")
     , ("M-o"                        , spawn "qutebrowser")
 
-    , ("M-S-f"                      , spawn "firefox")
-    , ("M-S-g"                      , spawn "chromium --incognito")
+    , ("M-S-f"                      , spawn "firefox-developer-edition")
+    , ("M-S-g"                      , spawn "google-chrome-stable --incognito")
 
     , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-<Backspace>"              , kill)

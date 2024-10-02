@@ -113,6 +113,7 @@ myManageHook = composeAll
    , className =? "Gmrun" --> doFloat
    , (className =? "Gimp" <&&> title =? "Quit GIMP") --> defaultFloating
    , role =? "GtkFileChooserDialog" --> floatMiddle
+   , role =? "bubble" --> doFloat
    , className =? "SimpleScreenRecorder" --> doFloat
 
 

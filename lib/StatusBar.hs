@@ -44,12 +44,12 @@ format foreground background line ws = wrap (click ++ ln ++ bg ++ fg ++ padding)
 myLogHook :: DC.Client -> X()
 myLogHook dbus = 
     (dynamicLogWithPP $ def { ppOutput = D.send dbus
-    , ppCurrent = format fg bg2 fg
-    , ppVisible = format fg bg2 gray
+    , ppCurrent = format fg bg2 blue
+    , ppVisible = format fg bg2 bg1
     , ppUrgent  = format red fg red
     , ppHidden  = format bg3 bg2 bg1
-    -- , ppHiddenNoWindows = format bg2 bg1 bg1
-    , ppWsSep   = " "
+    , ppHiddenNoWindows = format bg2 bg1 bg
+    , ppWsSep   = ""
     , ppSep     = "   "
     , ppTitle   = shorten 50
     } ) >> updatePointer (0.5, 0.5) (0, 0)

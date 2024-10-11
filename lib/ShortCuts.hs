@@ -76,9 +76,7 @@ modify conf = conf
     , ("M-S-q"                      , confirmPrompt promptDangerCfg "Quit XMonad" $ io (exitWith ExitSuccess))
 
     -- programs
-    , ("M-g g"                        , spawn "google-chrome-stable")
-    , ("M-g d"                        , spawn "google-chrome-stable --profile-directory=Default")
-    , ("M-g c"                        , spawn "google-chrome-stable --profile-directory='Profile 1'")
+    , ("M-g"                        , spawn "chromium --profile-directory=Default")
 
     , ("M-o o"                        , spawn "qutebrowser")
     , ("M-o M-o"                      , spawn "qutebrowser")
@@ -97,7 +95,7 @@ modify conf = conf
 
 
     , ("M-S-f"                      , spawn "firefox-developer-edition")
-    , ("M-S-g"                      , spawn "google-chrome-stable --incognito")
+    , ("M-S-g"                      , spawn "chromium --incognito")
 
     -- , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-S-<Return>"               , spawn "/usr/bin/alacritty")

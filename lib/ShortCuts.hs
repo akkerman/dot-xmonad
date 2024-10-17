@@ -67,8 +67,6 @@ modify conf = conf
     , ("M-S-o"                      , spawn (xmonadHome ++ "/launch-bookmark.sh " ++ dmenu_settings))
     , ("M1-<Tab>"                   , spawn ("/usr/bin/rofi -show window"))
 
-    -- , ("M-r"                        , spawn ("$HOME/Pictures/wallpapers/one_random_background.sh"))
-
     -- prompt
     , ("M-d s"                      , sshPrompt promptCfg)
     , ("M-d <Return>"               , shellPrompt promptCfg)
@@ -94,13 +92,10 @@ modify conf = conf
 
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)
-    -- , ("M-b"                        , sendMessage $ ToggleStrut U)    --- overlap window over polybar
-    -- , ("M-b"                        , sendMessage $ Toggle NOBORDERS) --- show/hide borders
     , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")
-    -- , ("M-m"                        , namedScratchpadAction myScratchpads "memento")
     , ("M-x"                        , namedScratchpadAction myScratchpads "keepass")
     , ("M-z"                        , spawn "pcmanfm")
 

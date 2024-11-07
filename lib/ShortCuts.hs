@@ -18,6 +18,7 @@ import XMonad.Util.NamedScratchpad(namedScratchpadAction)
 import XMonad.Util.NamedActions(addName)
 import XMonad.Prompt.ConfirmPrompt
 import XMonad.Prompt.Theme
+import XMonad.Actions.WindowBringer
 
 import Data.Maybe
 
@@ -65,10 +66,10 @@ modify conf = conf
     , ("M-b b"                      , spawn (xmonadHome ++ "/create-bookmark.sh " ++ dmenu_settings))
     , ("M-b o"                      , spawn (xmonadHome ++ "/launch-bookmark.sh " ++ dmenu_settings))
     , ("M-S-o"                      , spawn (xmonadHome ++ "/launch-bookmark.sh " ++ dmenu_settings))
-    , ("M1-<Tab>"                   , spawn ("/usr/bin/rofi -show window"))
 
     -- prompt
-    , ("M-d s"                      , sshPrompt promptCfg)
+    -- , ("M-d s"                      , sshPrompt promptCfg)
+    , ("M-d s"                      , spawn "/usr/bin/rofi -show ssh")
     , ("M-d <Return>"               , shellPrompt promptCfg)
     , ("M-S-q"                      , confirmPrompt promptDangerCfg "Quit XMonad" $ io (exitWith ExitSuccess))
 
@@ -80,10 +81,15 @@ modify conf = conf
     , ("M-S-g"                      , spawn "google-chrome-stable --incognito")
 
     , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
-    , ("M-<Backspace>"              , kill)
-    , ("M-S-<Backspace>"            , confirmPrompt promptWarnCfg "close all windows on this workspace" $ killAll)
     , ("<Print>"                    , spawn "flameshot gui")
     , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
+
+    -- window management
+    , ("M-<Backspace>"              , kill)
+    , ("M-S-<Backspace>"            , confirmPrompt promptWarnCfg "close all windows on this workspace" $ killAll)
+    , ("M1-<Tab>"                   , spawn ("/usr/bin/rofi -show window"))
+    , ("M-S-<Tab>"                  , bringMenu)
+
 
     -- emacs add todo etc.
     , ("M-n t"                      , spawn "emacsclient -c -a '' --eval '(org-capture)'")

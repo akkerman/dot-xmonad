@@ -32,6 +32,10 @@ tmuxinator start org --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNI
 # xmodmap -e 'clear Lock'
 # xmodmap -e 'add Control = Control_L'
 
+
+# set right alt as modifier key for diacritics
+setxkbmap -option compose:ralt
+
 nm-applet &
 exec xmonad
 

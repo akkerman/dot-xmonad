@@ -52,7 +52,7 @@ modify conf = conf
     , ("M4-M1-S-l"                  , spawn "playerctl stop; slock systemctl suspend -i") -- lock screen and suspend
 
     -- dmenu
-    , ("M-d c"                      , spawn ("dmenu_run" ++ dmenu_settings))
+    , ("M-d c"                      , spawn (xmonadHome ++ "dmenu_run.sh" ++ dmenu_settings))
     , ("M-d d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh start" ++ dmenu_settings))
     , ("M-d e"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh edit" ++ dmenu_settings))
@@ -92,9 +92,12 @@ modify conf = conf
 
 
     -- emacs add todo etc.
-    , ("M-n t"                      , spawn "emacsclient -c -a '' --eval '(org-capture)'")
     , ("M-S-m"                      , spawn "emacsclient -c")
-    , ("M-m"                        , spawn "emacsclient -c")
+    , ("M-m m"                      , spawn "emacsclient -c")
+    , ("M-m M-m"                    , spawn "emacsclient -c")
+    , ("M-m c"                      , spawn "emacsclient -c -a '' --eval '(org-capture)'")
+    , ("M-m n"                      , spawn "emacsclient -c -a '' --eval '(org-roam-capture)'")
+
 
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)

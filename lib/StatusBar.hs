@@ -12,7 +12,10 @@ import XMonad.Actions.UpdatePointer
 
 import Colors
 
--- fontawesome icons
+-- fontawesome icons -- https://fontawesome.com/search?ic=free
+-- the values are 'code points' for the icons
+-- if the icon is displayed in a browser the codepoint can be 
+-- viewed in the inspect under styles
 icon "1" = "\xf120" -- terminal
 icon "2" = "\xf268" -- chrome
 icon "3" = "\xf16c" -- stack overflow
@@ -22,7 +25,8 @@ icon "6" = "\xf085" -- cogs
 icon "7" = "\xf075" -- comment
 icon "8" = "\xf17c" -- linux
 icon "9" = "\xf02d" -- book
-icon "0" = "\xf1de" -- sliders
+-- icon "0" = "\xf1de" -- sliders
+icon "0" = "\xf249" -- note-sticky
 icon "-" = "\xf26c" -- television
 icon "=" = "\xf0f4" -- coffee
 icon n = n

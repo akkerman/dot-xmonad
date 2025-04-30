@@ -1,7 +1,7 @@
 #!/bin/sh
 
 
-choice=$(echo -e "commit slip-box\nrestart status bar\nstart mongo replset\nreload wallpaper\nrandom wallpaper\nremove current wallpaper\nrestart emacs daemon\nenable transparancy\ndisable transparancy" | dmenu -i "$@")
+choice=$(echo -e "commit slip-box\nrestart status bar\nstart mongo replset\nstop mongo replset\nreload wallpaper\nrandom wallpaper\nremove current wallpaper\nrestart emacs daemon\nenable transparancy\ndisable transparancy" | dmenu -i "$@")
 
 [ "$choice" = "commit slip-box" ] && systemctl --user restart commit-slipbox.service
 [ "$choice" = "restart status bar" ] && "$HOME/.config/polybar/launch.sh"
@@ -12,3 +12,4 @@ choice=$(echo -e "commit slip-box\nrestart status bar\nstart mongo replset\nrelo
 [ "$choice" = "remove current wallpaper" ] && "$HOME/Pictures/wallpapers/remove_current_background.sh" && "$HOME/Pictures/wallpapers/one_random_background.sh"
 [ "$choice" = "restart emacs daemon" ] && "$HOME/.config/xmonad/launch-emacs.sh"
 [ "$choice" = "start mongo replset" ] && docker start mongo0 mongo1 mongo2
+[ "$choice" = "stop mongo replset" ] && docker stop mongo0 mongo1 mongo2

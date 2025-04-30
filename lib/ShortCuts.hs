@@ -76,6 +76,7 @@ modify conf = conf
     -- programs
     , ("M-g"                        , spawn "google-chrome-stable --profile-directory=Default")
     , ("M-o"                        , spawn "qutebrowser")
+    , ("M-M1-o"                     , spawn "qutebrowser -T")
 
     , ("M-S-f"                      , spawn "firefox-developer-edition")
     , ("M-S-g"                      , spawn "google-chrome-stable --incognito")

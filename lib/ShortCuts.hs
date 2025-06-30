@@ -52,15 +52,16 @@ modify conf = conf
     , ("M4-M1-S-l"                  , spawn "playerctl stop; slock systemctl suspend -i") -- lock screen and suspend
 
     -- dmenu
-    , ("M-d c"                      , spawn (xmonadHome ++ "dmenu_run.sh" ++ dmenu_settings))
+    , ("M-d c"                      , spawn ("qutebrowser https://chatgpt.com --target window"))
     , ("M-d d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh start" ++ dmenu_settings))
     , ("M-d e"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh edit" ++ dmenu_settings))
     , ("M-d S-t"                    , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh stop" ++ dmenu_settings))
     , ("M-d r"                      , spawn (xmonadHome ++ "/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-d p"                      , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
-    , ("M-p"                        , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
-    , ("M-d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))
+    -- , ("M-p"                        , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
+    , ("M-p"                        , spawn ("rofi-pass"))
+    , ("M.d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))
     , ("M-d w"                      , spawn (xmonadHome ++ "/change-wallpaper.sh " ++ dmenu_settings))
     , ("M-b i"                      , spawn (xmonadHome ++ "/insert-bookmark.sh " ++ dmenu_settings))
     , ("M-b b"                      , spawn (xmonadHome ++ "/create-bookmark.sh " ++ dmenu_settings))
@@ -74,7 +75,10 @@ modify conf = conf
     , ("M-S-q"                      , confirmPrompt promptDangerCfg "Quit XMonad" $ io (exitWith ExitSuccess))
 
     -- programs
-    , ("M-g"                        , spawn "google-chrome-stable --profile-directory=Default")
+    , ("M-g g"                        , spawn "google-chrome-stable")
+    , ("M-g d"                        , spawn "google-chrome-stable --profile-directory=Default")
+    , ("M-g c"                        , spawn "google-chrome-stable --profile-directory='Profile 1'")
+
     , ("M-o"                        , spawn "qutebrowser")
     , ("M-M1-o"                     , spawn "qutebrowser -T")
 

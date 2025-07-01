@@ -61,7 +61,7 @@ modify conf = conf
     , ("M-d p"                      , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
     -- , ("M-p"                        , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-p"                        , spawn ("rofi-pass"))
-    , ("M d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))
+    , ("M-d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))
     , ("M-d w"                      , spawn (xmonadHome ++ "/change-wallpaper.sh " ++ dmenu_settings))
     , ("M-b i"                      , spawn (xmonadHome ++ "/insert-bookmark.sh " ++ dmenu_settings))
     , ("M-b b"                      , spawn (xmonadHome ++ "/create-bookmark.sh " ++ dmenu_settings))

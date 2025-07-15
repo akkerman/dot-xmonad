@@ -5,7 +5,8 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # install from aur: gruvbox-material-gtk-theme-git gruvbox-material-icon-theme-git
 export GTK_THEME=Gruvbox-Material-Dark
 
-xmonad --recompile
+/usr/sbin/dunst &
+# xmonad --recompile
 # xsetroot -solid "#1d2021" # hard contrast
 xsetroot -solid "#282828" # medium contrast
 # xsetroot -solid "#32302f" # soft contrast
@@ -24,7 +25,6 @@ $HOME/.config/polybar/launch.sh &    # dock / statusbar
 $HOME/.config/xmonad/launch-emacs.sh &
 
 # utils
-/usr/sbin/dunst &
 /usr/sbin/unclutter -idle 2 --start-hidden &
 tmuxinator start org --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING
 

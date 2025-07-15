@@ -52,7 +52,6 @@ modify conf = conf
     , ("M4-M1-S-l"                  , spawn "playerctl stop; slock systemctl suspend -i") -- lock screen and suspend
 
     -- dmenu
-    , ("M-d c"                      , spawn ("qutebrowser https://chatgpt.com --target window"))
     , ("M-d d"                      , spawn ("j4-dmenu-desktop --term=/usr/local/bin/st --dmenu=\"dmenu -i " ++ dmenu_settings ++ "\""))
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh start" ++ dmenu_settings))
     , ("M-d e"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh edit" ++ dmenu_settings))
@@ -79,8 +78,13 @@ modify conf = conf
     , ("M-g d"                        , spawn "google-chrome-stable --profile-directory=Default")
     , ("M-g c"                        , spawn "google-chrome-stable --profile-directory='Profile 1'")
 
-    , ("M-o"                        , spawn "qutebrowser")
-    , ("M-M1-o"                     , spawn "qutebrowser -T")
+    , ("M-o q"                        , spawn "qutebrowser")
+    , ("M-o o"                        , spawn "qutebrowser")
+    , ("M-o t"                        , spawn "qutebrowser -T")
+    , ("M-o r"                        , spawn "$HOME/.local/bin/qrun")
+    , ("M-o c"                        , spawn ("qutebrowser https://chatgpt.com --target window"))
+    , ("M-o p"                        , spawn ("qutebrowser https://plex.tv --target window"))
+
 
     , ("M-S-f"                      , spawn "firefox-developer-edition")
     , ("M-S-g"                      , spawn "google-chrome-stable --incognito")

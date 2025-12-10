@@ -1,10 +1,15 @@
 #!/bin/sh
 
-bookmark="$(xclip -o)"
+primary="$(xclip -o)"
+clipboard="$(xclip -o -selection clipboard)"
 file="$HOME/Dropbox/bookmarks.txt"
 
-if ! [[ $bookmark =~ ^(https?|ftp|file|chrome)://[a-zA-Z0-9./?=_%+-]+$ ]]; then
-  notify-send -t 3000 -u critical "Invalid URL" "$bookmark"
+if [ -n "$primary" ] && [[ $primary =~ ^(https?|ftp|file|chrome)://[a-zA-Z0-9./?=_%+-]+$ ]]; then
+  bookmark="$primary"
+elif [ -n "$clipboard" ] && [[ $clipboard =~ ^(https?|ftp|file|chrome)://[a-zA-Z0-9./?=_%+-]+$ ]]; then
+  bookmark="$clipboard"
+else
+  notify-send -t 3000 -u critical "No valid URL in clipboard"
   exit 1
 fi
 

@@ -78,8 +78,8 @@ modify conf = conf
     , ("M-g d"                        , spawn "google-chrome-stable --profile-directory=Default")
     , ("M-g c"                        , spawn "google-chrome-stable --profile-directory='Profile 1'")
 
-    , ("M-o q"                        , spawn "qutebrowser")
     , ("M-o o"                        , spawn "qutebrowser")
+    , ("M-o M-o"                      , spawn "qutebrowser")
     , ("M-o t"                        , spawn "qutebrowser -T")
     , ("M-o r"                        , spawn "$HOME/.local/bin/qrun")
     , ("M-o c"                        , spawn ("qutebrowser https://chatgpt.com --target window"))
@@ -144,9 +144,13 @@ modify conf = conf
     ] 
     ++ 
     [("M-" ++ id, toggleOrView id) | id <- myWorkspaces] -- auto back and forth
-    -- ++
-    -- [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
-    --      | (key, scr)  <- zip "wer" [1,0,2] -- was [0..] *** change to match your screen order ***
-    --      , (action, mask) <- [ (W.view, "") , (W.shift, "S-")]
-    -- ]
+    ++
+    [ (mask ++ "M-" ++ [key], screenWorkspace scr >>= flip whenJust (windows . action))
+         | (key, scr)  <- zip "wer" wer -- was [0..] *** change to match your screen order ***
+         , (action, mask) <- [ (W.view, "") , (W.shift, "S-")]
+    ]
     )
+    where 
+      -- change to match your screen order
+      wer = [1,0,2] 
+      -- wer = [2,0,1] 

@@ -108,7 +108,9 @@ myManageHook = composeAll
 
    , className =? "Spotify" --> floatMiddle
    , className =? "Pavucontrol" --> floatTopSmall
+   , className =? "pavucontrol" --> floatTopSmall
    , className =? "Pavumeter" --> floatTopSmall
+
    , className =? "flameshot" --> floatMiddleSmall
    , className =? "Gmrun" --> doFloat
    , (className =? "Gimp" <&&> title =? "Quit GIMP") --> defaultFloating

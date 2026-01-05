@@ -88,6 +88,7 @@ modify conf = conf
     , ("M-o m"                        , spawn ("qutebrowser https://outlook.office.com/mail/ --target window"))
     , ("M-o p"                        , spawn ("qutebrowser https://app.plex.tv/desktop/#!/ --target window"))
     , ("M-o y"                        , spawn ("qutebrowser https://www.youtube.com --target window"))
+    , ("M-o M-y"                        , spawn ("qutebrowser https://www.youtube.com --target window"))
     , ("M-o a"                        , spawn ("qutebrowser http://apps/ --target window"))
 
 

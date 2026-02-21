@@ -84,7 +84,7 @@ modify conf = conf
     , ("M-o t"                        , spawn "qutebrowser -T")
     , ("M-o r"                        , spawn "$HOME/.local/bin/qrun")
     , ("M-o b"                        , spawn "qutebrowser --basedir $HOME/.config/brain.fm https://my.brain.fm")
-    , ("M-o c"                        , spawn ("qutebrowser https://chatgpt.com --target window"))
+    , ("M-o c"                        , spawn ("qutebrowser https://claude.ai --target window"))
     , ("M-o i"                        , spawn ("qutebrowser https://gitlab.com/groups/DSP/-/issues --target window"))
     , ("M-o j"                        , spawn ("qutebrowser https://mijnaansluiting.atlassian.net/jira/software/c/projects/DSP/boards/2?sprint --target window"))
     , ("M-o m"                        , spawn ("qutebrowser https://outlook.office.com/mail/ --target window"))

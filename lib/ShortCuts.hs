@@ -98,7 +98,8 @@ modify conf = conf
     , ("M-S-f"                      , spawn "firefox-developer-edition")
     , ("M-S-g"                      , spawn "google-chrome-stable --incognito")
 
-    , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
+    -- , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
+    , ("M-S-<Return>"               , spawn "/usr/bin/alacritty")
     , ("<Print>"                    , spawn "flameshot gui")
     , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
 

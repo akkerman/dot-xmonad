@@ -92,7 +92,7 @@ modify conf = conf
     , ("M-o p"                        , spawn ("qutebrowser https://app.plex.tv/desktop/#!/ --target window"))
     , ("M-o y"                        , spawn ("qutebrowser https://www.youtube.com --target window"))
     , ("M-o M-y"                        , spawn ("qutebrowser https://www.youtube.com --target window"))
-    , ("M-o a"                        , spawn ("qutebrowser http://apps/ --target window"))
+    , ("M-o a"                        , spawn ("qutebrowser https://apps.viewsource.nl/ --target window"))
 
 
     , ("M-S-f"                      , spawn "firefox-developer-edition")

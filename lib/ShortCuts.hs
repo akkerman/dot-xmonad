@@ -59,6 +59,7 @@ modify conf = conf
     , ("M-d r"                      , spawn (xmonadHome ++ "/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-d p"                      , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-d M-p"                    , spawn (xmonadHome ++ "/get-credentials" ++ dmenu_settings))
+    , ("M-d c"                      , spawn (xmonadHome ++ "/dmenu_capo.sh " ++ dmenu_settings))
     -- , ("M-p"                        , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-p"                        , spawn ("rofi-pass"))
     , ("M-d m"                      , spawn (xmonadHome ++ "/chscreen.sh " ++ dmenu_settings))

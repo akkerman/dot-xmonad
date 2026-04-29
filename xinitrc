@@ -37,6 +37,13 @@ tmuxinator start org --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNI
 setxkbmap -option compose:ralt
 
 nm-applet &
-exec xmonad
+xmonad
+
+
+# shutdown qutebrowser if it is running
+kill -term $(pgrep -x qutebrowser)
+
+# Gracefully shutdown emacs if it is running
+pgrep -u $UID -x emacs >/dev/null && /usr/bin/emacsclient -e "(kill-emacs)" 
 
 # vi: ft=sh:

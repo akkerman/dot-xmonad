@@ -54,13 +54,12 @@ myTabConfig = def { activeColor = bg
                   , urgentTextColor = red
                   }
 
-myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? EOT) $
-    tiled ||| vtiled ||| three ||| mthree ||| tab
+myLayout = avoidStruts $ mkToggle (NBFULL ?? NOBORDERS ?? MIRROR ?? EOT) $
+    tiled ||| three ||| mthree ||| tab
     where
         three = nameClick "[]··" $ ThreeCol nmaster delta (5/12)
         mthree = nameClick "·[]·" $ ThreeColMid nmaster delta (1/2)
         tiled = nameClick "[]·" $ Tall nmaster delta (2/3)
-        vtiled = nameClick "[_]" $ Mirror $ Tall nmaster delta (1/2)
         tab = nameClick "T" $ tabbedBottom shrinkText myTabConfig
         nmaster = 1
         delta = 3/100

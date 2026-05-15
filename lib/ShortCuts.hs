@@ -121,6 +121,7 @@ modify conf = conf
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)
     , ("M-f"                        , sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
+    , ("M-v"                        , sendMessage (Toggle MIRROR))
 
     , ("M-S-a"                      , namedScratchpadAction myScratchpads "arandr")
     , ("M-s"                        , namedScratchpadAction myScratchpads "spotify")

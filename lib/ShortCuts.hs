@@ -56,6 +56,7 @@ modify conf = conf
     , ("M-d t"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh start" ++ dmenu_settings))
     , ("M-d e"                      , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh edit" ++ dmenu_settings))
     , ("M-d S-t"                    , spawn ("$HOME/.config/tmuxinator/dmenu_mux.sh stop" ++ dmenu_settings))
+    , ("M-d S-s"                    , spawn (xmonadHome ++ "/dmenu_intranet_tmux.sh " ++ dmenu_settings))
     , ("M-d r"                      , spawn (xmonadHome ++ "/dmenu_restart.sh" ++ dmenu_settings))
     , ("M-d p"                      , spawn (xmonadHome ++ "/dmenu_pdf.sh" ++ dmenu_settings))
     , ("M-d M-p"                    , spawn (xmonadHome ++ "/get-credentials" ++ dmenu_settings))

@@ -18,5 +18,5 @@ choice=$(printf '%s\n' "$sessions" | sort -u | dmenu -p "tmux@$host" -i "$@")
 
 # Only act on an exact match with an existing remote session; otherwise do nothing.
 if [ -n "$choice" ] && printf '%s\n' "$sessions" | grep -Fxq -- "$choice"; then
-  "$TERMINAL" -t "$host $choice" -e ssh -t "$host" "tmux attach -t '$choice'"
+  "$TERMINAL" -t "$host $choice" -e ssh -t "$host" "bash -l -c \"tmux attach -t '$choice'\""
 fi

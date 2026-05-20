@@ -10,6 +10,9 @@ export GTK_THEME=Gruvbox-Material-Dark
 # xsetroot -solid "#1d2021" # hard contrast
 xsetroot -solid "#282828" # medium contrast
 # xsetroot -solid "#32302f" # soft contrast
+#
+
+systemctl --user import-environment DISPLAY XAUTHORITY
 
 $HOME/.screenlayout/default.sh         # xrandr
 $HOME/.fehbg                         # background
@@ -37,13 +40,13 @@ tmuxinator start org --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNI
 setxkbmap -option compose:ralt
 
 nm-applet &
-xmonad
+exec xmonad
 
 
 # shutdown qutebrowser if it is running
-kill -term $(pgrep -x qutebrowser)
+# kill -term $(pgrep -x qutebrowser)
 
 # Gracefully shutdown emacs if it is running
-pgrep -u $UID -x emacs >/dev/null && /usr/bin/emacsclient -e "(kill-emacs)" 
+# pgrep -u $UID -x emacs >/dev/null && /usr/bin/emacsclient -e "(kill-emacs)" 
 
 # vi: ft=sh:

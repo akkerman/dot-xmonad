@@ -14,7 +14,11 @@ fi
 
 sessions=$(ssh "$host" "tmux ls -F '#{session_name}'" 2>/dev/null)
 
-choice=$(printf '%s\n' "$sessions" | sort -u | dmenu -p "tmux@$host" -i "$@")
+if command -v rofi &>/dev/null; then
+  choice=$(printf '%s\n' "$sessions" | sort -u | rofi -dmenu -p "tmux@$host" -i)
+else
+  choice=$(printf '%s\n' "$sessions" | sort -u | dmenu -p "tmux@$host" -i "$@")
+fi
 
 # Only act on an exact match with an existing remote session; otherwise do nothing.
 if [ -n "$choice" ] && printf '%s\n' "$sessions" | grep -Fxq -- "$choice"; then

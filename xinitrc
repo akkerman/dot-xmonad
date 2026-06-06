@@ -21,20 +21,18 @@ $HOME/.config/polybar/launch.sh &    # dock / statusbar
 
 # tray programs
 /usr/bin/pasystray &      # sound
-/usr/sbin/dropbox start & # file sharing
+# /usr/sbin/dropbox start & # file sharing
 /usr/sbin/flameshot &     # screen shots
 
 
 # /usr/bin/clipit &         # clipboard history
 $HOME/.config/xmonad/launch-emacs.sh
 
-/usr/bin/synergyc octotron & # share mouse & keyboard
 blueman-applet &
 
 
 # utils
 /usr/sbin/unclutter -idle 2 --start-hidden &
-tmuxinator start org --suppress-tmux-version-warning=SUPPRESS-TMUX-VERSION-WARNING
 
 xmodmap -e 'keycode 66 = Control_L'
 xmodmap -e 'clear Lock'

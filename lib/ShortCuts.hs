@@ -86,7 +86,8 @@ modify conf = conf
     , ("M-o r"                        , spawn "$HOME/.local/bin/qrun")
     , ("M-o b"                        , spawn "qutebrowser --basedir $HOME/.config/brain.fm https://my.brain.fm")
     , ("M-o c"                        , spawn ("qutebrowser https://claude.ai --target window"))
-    , ("M-o i"                        , spawn ("qutebrowser https://gitlab.com/groups/DSP/-/issues --target window"))
+    , ("M-o i"                        , spawn ("qutebrowser https://gitlab.com/groups/DSP/-/work_items?sort=updated_desc&state=opened&first_page_size=20 --target window"))
+    
     , ("M-o j"                        , spawn ("qutebrowser https://mijnaansluiting.atlassian.net/jira/software/c/projects/DSP/boards/2?sprint --target window"))
     , ("M-o m"                        , spawn ("qutebrowser https://outlook.office.com/mail/ --target window"))
     , ("M-o p"                        , spawn ("qutebrowser https://app.plex.tv/desktop/#!/ --target window"))
@@ -110,13 +111,8 @@ modify conf = conf
     , ("M-S-<Tab>"                  , bringMenu)
 
 
-    -- emacs add todo etc.
-    , ("M-S-m"                      , spawn "emacsclient -c")
-    , ("M-m m"                      , spawn "emacsclient -c")
-    , ("M-m M-m"                    , spawn "emacsclient -c")
-    , ("M-m c"                      , spawn "emacsclient -c -a '' --eval '(org-capture)'")
-    , ("M-m n"                      , spawn "emacsclient -c -a '' --eval '(org-roam-capture)'")
-
+    -- emacs 
+    , ("M-m"                      , spawn "emacsclient -c")
 
     -- modify screen/layout
     , ("M-<Return>"                 , dwmpromote)

@@ -28,3 +28,4 @@ cabal.project.local~
 *.errors
 xmonad-x86_64-linux
 prompt-history
+.claude/settings.local.json

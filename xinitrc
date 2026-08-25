@@ -5,6 +5,11 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # install from aur: gruvbox-material-gtk-theme-git gruvbox-material-icon-theme-git
 export GTK_THEME=Gruvbox-Material-Dark
 
+# pin winit apps (Alacritty) to 1x scale; mixed-DPI monitors otherwise resize font on window move
+export WINIT_X11_SCALE_FACTOR=1
+
+
+
 /usr/sbin/dunst &
 # xmonad --recompile
 # xsetroot -solid "#1d2021" # hard contrast

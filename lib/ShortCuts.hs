@@ -103,7 +103,7 @@ modify conf = conf
     -- , ("M-S-<Return>"               , spawn "/usr/local/bin/st")
     , ("M-S-<Return>"               , spawn "/usr/bin/alacritty")
     , ("<Print>"                    , spawn "flameshot gui")
-    , ("S-<Print>"                  , spawn "flameshot full -p $HOME/Pictures/scrot")
+    , ("S-<Print>"                  , spawn "$HOME/.config/xmonad/screenshot-ocr.sh")
 
     -- window management
     , ("M-<Backspace>"              , kill)

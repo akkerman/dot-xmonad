@@ -90,7 +90,6 @@ myManageHook = composeAll
    , className =? "Blueman-manager"   --> doFloat
    , className =? "slack"             --> viewShift "7"
    , className =? "TelegramDesktop"   --> viewShift "7"
-   , title =? "mux memento"           --> viewShift "9"
    , className =? "plexmediaplayer"   --> viewShift "-"
 
    , (className =? "Chromium" <&&> title =? "Open File") --> floatMiddle
@@ -103,6 +102,8 @@ myManageHook = composeAll
 
    , (className =? "Synergy" <&&> title =? "Synergy 1 Pro" )       --> floatMiddle
    , (className =? "Synergy" <&&> title =? "Server Configuration") --> floatMiddleSmall
+
+   , (className =? "SeaTools" ) --> floatMiddleSmall
 
    , className =? "GoldenDict" --> floatMiddle
 

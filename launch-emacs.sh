@@ -17,9 +17,24 @@ while pgrep -u $UID -x emacs >/dev/null; do sleep 1; done
 # Startup 
 notify "Starting Emacs"
 /usr/bin/emacs --daemon &
+EMACS_PID=$!
 
-
-while ! emacsclient -e '(format  "ping")'; do
+TIMEOUT=60
+START=$SECONDS
+while ! emacsclient -e '(format  "ping")' >/dev/null 2>&1; do
+  # The launcher process exits when the daemon is up (0) or has failed (non-zero)
+  if ! kill -0 "$EMACS_PID" 2>/dev/null; then
+    wait "$EMACS_PID"
+    STATUS=$?
+    if [ "$STATUS" -ne 0 ]; then
+      notify "Emacs failed to start" "emacs --daemon exited with status $STATUS"
+      exit "$STATUS"
+    fi
+  fi
+  if (( SECONDS - START >= TIMEOUT )); then
+    notify "Emacs failed to start" "no response after ${TIMEOUT}s"
+    exit 1
+  fi
   echo "waiting..."
   sleep 1
 done
